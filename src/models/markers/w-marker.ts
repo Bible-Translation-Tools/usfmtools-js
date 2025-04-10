@@ -11,7 +11,8 @@ export class WMarker extends Marker {
    */
   public attributes: { [key: string]: string } = {};
 
-  private static wordAttributePattern: RegExp = /([\w-]+)=?"?([\w,:.]*)"?/;
+  private static wordAttributePattern: RegExp =
+    /([\p{L}-]+)=?"?([\p{L}\d,:.]*)"?/u;
 
   public getIdentifier(): string {
     return "w";
@@ -27,7 +28,6 @@ export class WMarker extends Marker {
       const wordAttr = wordEntry[1].split(" ");
       for (const attr of wordAttr) {
         const matches = attr.match(WMarker.wordAttributePattern);
-
         if (matches && matches.length > 0) {
           if (matches[2].length === 0) {
             this.attributes["lemma"] = matches[1];

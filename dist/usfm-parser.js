@@ -754,4 +754,4 @@ class USFMParser {
     }
 }
 exports.USFMParser = USFMParser;
-USFMParser.splitRegex = /\\\\([a-z0-9-]*\**)([^\\\\]*)/;
+USFMParser.splitRegex = /\\\\([a-z0-9-]*\**)([^\\\\]*)/g;

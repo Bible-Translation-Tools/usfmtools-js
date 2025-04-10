@@ -162,7 +162,7 @@ export class USFMParser {
   /** @var array|string[] */
   private ignoredTags: string[] = [];
   private ignoreUnknownMarkers: boolean = false;
-  private static splitRegex: RegExp = /\\\\([a-z0-9-]*\**)([^\\\\]*)/;
+  private static splitRegex: RegExp = /\\([a-z0-9-]*\**)([^\\]*)/g;
 
   /**
    * @param ?string[] $tagsToIgnore

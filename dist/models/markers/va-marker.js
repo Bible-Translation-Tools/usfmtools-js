@@ -7,7 +7,8 @@ class VAMarker extends marker_1.Marker {
         return "va";
     }
     preProcess(input) {
-        return input.trim();
+        this.altVerseNumber = input.trim();
+        return "";
     }
 }
 exports.VAMarker = VAMarker;
