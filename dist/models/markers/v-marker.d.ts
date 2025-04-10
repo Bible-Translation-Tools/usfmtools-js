@@ -7,6 +7,6 @@ export declare class VMarker extends Marker {
     getIdentifier(): string;
     preProcess(input: string): string;
     getVerseCharacter(): string;
-    getAllowedContents(): string[];
+    getAllowedContents(): (new (...args: any[]) => Marker)[];
     tryInsert(input: Marker): boolean;
 }

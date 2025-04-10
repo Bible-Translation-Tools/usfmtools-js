@@ -9,7 +9,7 @@ export class TRMarker extends Marker {
     return "tr";
   }
 
-  public getAllowedContents(): string[] {
-    return [TCMarker.name, THMarker.name, TCRMarker.name, THRMarker.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TCMarker, THMarker, TCRMarker, THRMarker];
   }
 }

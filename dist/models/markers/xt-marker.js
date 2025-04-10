@@ -11,7 +11,7 @@ class XTMarker extends marker_1.Marker {
         return input.trimStart();
     }
     getAllowedContents() {
-        return [text_block_1.TextBlock.name];
+        return [text_block_1.TextBlock];
     }
 }
 exports.XTMarker = XTMarker;

@@ -14,7 +14,7 @@ export class MSMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [MRMarker.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [MRMarker];
   }
 }

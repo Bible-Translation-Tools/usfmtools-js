@@ -51,5 +51,8 @@ Example:
 ```javascript
 const parser = new USFMParser();
 const contents = fs.readFileSync("01-GEN.usfm", "utf8");
-const output = parser.parseFromString(contents);
+const output = parser.parseFromString(contents.toString());
+
+// Get only chapter markers
+const chapters = chapters.getChildMarkers(CMarker);
 ```

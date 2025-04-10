@@ -24,26 +24,26 @@ export class QMarker extends Marker {
     return input.trimStart();
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      BMarker.name,
-      QSMarker.name,
-      QSEndMarker.name,
-      TextBlock.name,
-      FMarker.name,
-      FEndMarker.name,
-      TLMarker.name,
-      TLEndMarker.name,
-      WMarker.name,
-      WEndMarker.name,
-      VMarker.name,
+      BMarker,
+      QSMarker,
+      QSEndMarker,
+      TextBlock,
+      FMarker,
+      FEndMarker,
+      TLMarker,
+      TLEndMarker,
+      WMarker,
+      WEndMarker,
+      VMarker,
     ];
   }
 
   public tryInsert(input: Marker): boolean {
     if (
-      input.constructor.name === VMarker.name &&
-      this.contents.some((m) => m.constructor.name === VMarker.name)
+      input instanceof VMarker &&
+      this.contents.some((m) => m instanceof VMarker)
     ) {
       return false;
     }

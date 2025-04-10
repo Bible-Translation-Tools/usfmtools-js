@@ -18,15 +18,15 @@ export class QMMarker extends Marker {
     return input.trimStart();
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      TextBlock.name,
-      FMarker.name,
-      FEndMarker.name,
-      TLMarker.name,
-      TLEndMarker.name,
-      WMarker.name,
-      WEndMarker.name,
+      TextBlock,
+      FMarker,
+      FEndMarker,
+      TLMarker,
+      TLEndMarker,
+      WMarker,
+      WEndMarker,
     ];
   }
 }

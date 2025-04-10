@@ -13,7 +13,7 @@ export class XOMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [TextBlock.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TextBlock];
   }
 }

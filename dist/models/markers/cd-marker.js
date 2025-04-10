@@ -12,7 +12,7 @@ class CDMarker extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [text_block_1.TextBlock.name];
+        return [text_block_1.TextBlock];
     }
 }
 exports.CDMarker = CDMarker;

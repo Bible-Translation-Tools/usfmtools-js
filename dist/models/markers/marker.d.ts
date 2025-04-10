@@ -6,7 +6,7 @@ export declare abstract class Marker {
     /**
      * @return string[]
      */
-    getAllowedContents(): string[];
+    getAllowedContents(): (new (...args: any[]) => Marker)[];
     /**
      * Pre-process the text contents before creating text elements inside of it
      * @param input
@@ -17,7 +17,7 @@ export declare abstract class Marker {
     /**
      * @return string[]
      */
-    getTypesPathToLastMarker(): string[];
+    getTypesPathToLastMarker(): (new (...args: any[]) => Marker)[];
     /**
      * @param target
      * @return Marker[]
@@ -35,7 +35,7 @@ export declare abstract class Marker {
      * @param ignoredParents
      * @return Marker[]
      */
-    getChildMarkers(type: string, ignoredParents?: string[] | null): Marker[];
+    getChildMarkers<T extends Marker>(type: new (...args: any[]) => T, ignoredParents?: (new (...args: any[]) => Marker)[] | null): T[];
     /**
      * @return Marker
      */

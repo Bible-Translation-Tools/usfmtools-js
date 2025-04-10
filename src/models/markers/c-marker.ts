@@ -58,43 +58,43 @@ export class CMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      MMarker.name,
-      MSMarker.name,
-      SMarker.name,
-      BMarker.name,
-      DMarker.name,
-      VMarker.name,
-      PMarker.name,
-      PCMarker.name,
-      CDMarker.name,
-      CPMarker.name,
-      CLMarker.name,
-      QMarker.name,
-      QSMarker.name,
-      QSEndMarker.name,
-      QAMarker.name,
-      NBMarker.name,
-      RMarker.name,
-      LIMarker.name,
-      TableBlock.name,
-      MIMarker.name,
-      PIMarker.name,
-      CAMarker.name,
-      CAEndMarker.name,
-      SPMarker.name,
-      TextBlock.name,
-      REMMarker.name,
-      VAMarker.name,
-      VAEndMarker.name,
-      FMarker.name,
-      FEndMarker.name,
+      MMarker,
+      MSMarker,
+      SMarker,
+      BMarker,
+      DMarker,
+      VMarker,
+      PMarker,
+      PCMarker,
+      CDMarker,
+      CPMarker,
+      CLMarker,
+      QMarker,
+      QSMarker,
+      QSEndMarker,
+      QAMarker,
+      NBMarker,
+      RMarker,
+      LIMarker,
+      TableBlock,
+      MIMarker,
+      PIMarker,
+      CAMarker,
+      CAEndMarker,
+      SPMarker,
+      TextBlock,
+      REMMarker,
+      VAMarker,
+      VAEndMarker,
+      FMarker,
+      FEndMarker,
     ];
   }
 
   public getPublishedChapterMarker(): string {
-    const childCharacterMarkers = this.getChildMarkers(CPMarker.name);
+    const childCharacterMarkers = this.getChildMarkers(CPMarker);
     if (childCharacterMarkers.length > 0) {
       const marker = childCharacterMarkers[0] as CPMarker;
       return marker.publishedChapterMarker;
@@ -104,7 +104,7 @@ export class CMarker extends Marker {
   }
 
   public customChapterLabel(): string {
-    const childChapLabelMarker = this.getChildMarkers(CLMarker.name);
+    const childChapLabelMarker = this.getChildMarkers(CLMarker);
     if (childChapLabelMarker.length > 0) {
       const marker = childChapLabelMarker[0] as CLMarker;
       return marker.label;

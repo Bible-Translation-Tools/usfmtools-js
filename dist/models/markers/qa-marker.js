@@ -16,7 +16,7 @@ class QAMarker extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [qac_marker_1.QACMarker.name, qac_end_marker_1.QACEndMarker.name];
+        return [qac_marker_1.QACMarker, qac_end_marker_1.QACEndMarker];
     }
 }
 exports.QAMarker = QAMarker;

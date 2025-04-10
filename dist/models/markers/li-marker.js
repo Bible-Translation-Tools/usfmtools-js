@@ -16,7 +16,7 @@ class LIMarker extends marker_1.Marker {
         return input.trim();
     }
     getAllowedContents() {
-        return [v_marker_1.VMarker.name, text_block_1.TextBlock.name];
+        return [v_marker_1.VMarker, text_block_1.TextBlock];
     }
 }
 exports.LIMarker = LIMarker;

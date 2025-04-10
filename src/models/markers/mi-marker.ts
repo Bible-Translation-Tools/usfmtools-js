@@ -23,26 +23,26 @@ export class MIMarker extends Marker {
     return "mi";
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      TextBlock.name,
-      VMarker.name,
-      BKMarker.name,
-      BKEndMarker.name,
-      BDMarker.name,
-      BDEndMarker.name,
-      ITMarker.name,
-      ITEndMarker.name,
-      SCMarker.name,
-      SCEndMarker.name,
-      BDITMarker.name,
-      BDITEndMarker.name,
-      NDMarker.name,
-      NDEndMarker.name,
-      NOMarker.name,
-      NOEndMarker.name,
-      SUPMarker.name,
-      SUPEndMarker.name,
+      TextBlock,
+      VMarker,
+      BKMarker,
+      BKEndMarker,
+      BDMarker,
+      BDEndMarker,
+      ITMarker,
+      ITEndMarker,
+      SCMarker,
+      SCEndMarker,
+      BDITMarker,
+      BDITEndMarker,
+      NDMarker,
+      NDEndMarker,
+      NOMarker,
+      NOEndMarker,
+      SUPMarker,
+      SUPEndMarker,
     ];
   }
 }

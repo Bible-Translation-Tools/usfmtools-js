@@ -15,7 +15,7 @@ class XMarker extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [xo_marker_1.XOMarker.name, xt_marker_1.XTMarker.name, xq_marker_1.XQMarker.name, text_block_1.TextBlock.name];
+        return [xo_marker_1.XOMarker, xt_marker_1.XTMarker, xq_marker_1.XQMarker, text_block_1.TextBlock];
     }
 }
 exports.XMarker = XMarker;

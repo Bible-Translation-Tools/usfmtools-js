@@ -10,7 +10,7 @@ export class IOMarker extends Marker {
     return "io";
   }
 
-  public getAllowedContents(): string[] {
-    return [TextBlock.name, IORMarker.name, IOREndMarker.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TextBlock, IORMarker, IOREndMarker];
   }
 }

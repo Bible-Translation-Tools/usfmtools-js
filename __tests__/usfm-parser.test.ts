@@ -90,17 +90,6 @@ describe("USFMParserTest", () => {
     parser = new USFMParser();
   });
 
-  const checkTypeList = (
-    types: (new (...args: any[]) => Marker)[],
-    markers: Marker[]
-  ) => {
-    expect(markers.length).toBe(types.length);
-    for (let i = 0; i < types.length; i++) {
-      expect(markers[i]).toBeInstanceOf(types[i]);
-      expect(markers[i].constructor.name).toBe(types[i].name); // Optional: Check constructor name as well
-    }
-  };
-
   test("TestIgnoredTags", () => {
     parser = new USFMParser(["bd", "bd*"]);
     const doc = parser.parseFromString("\\v 1 In the beginning \\bd God \\bd*");

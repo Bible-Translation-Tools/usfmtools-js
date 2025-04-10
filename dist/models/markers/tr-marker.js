@@ -11,7 +11,7 @@ class TRMarker extends marker_1.Marker {
         return "tr";
     }
     getAllowedContents() {
-        return [tc_marker_1.TCMarker.name, th_marker_1.THMarker.name, tcr_marker_1.TCRMarker.name, thr_marker_1.THRMarker.name];
+        return [tc_marker_1.TCMarker, th_marker_1.THMarker, tcr_marker_1.TCRMarker, thr_marker_1.THRMarker];
     }
 }
 exports.TRMarker = TRMarker;

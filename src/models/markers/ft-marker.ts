@@ -24,23 +24,23 @@ export class FTMarker extends Marker {
     return input.trimStart();
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      TLMarker.name,
-      TLEndMarker.name,
-      WMarker.name,
-      WEndMarker.name,
-      TextBlock.name,
-      ITMarker.name,
-      ITEndMarker.name,
-      SCMarker.name,
-      SCEndMarker.name,
-      SUPMarker.name,
-      SUPEndMarker.name,
-      BKMarker.name,
-      BKEndMarker.name,
-      BDMarker.name,
-      BDEndMarker.name,
+      TLMarker,
+      TLEndMarker,
+      WMarker,
+      WEndMarker,
+      TextBlock,
+      ITMarker,
+      ITEndMarker,
+      SCMarker,
+      SCEndMarker,
+      SUPMarker,
+      SUPEndMarker,
+      BKMarker,
+      BKEndMarker,
+      BDMarker,
+      BDEndMarker,
     ];
   }
 }

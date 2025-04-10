@@ -29,28 +29,28 @@ export class IPMarker extends Marker {
     return input.trim();
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      TextBlock.name,
-      BKMarker.name,
-      BKEndMarker.name,
-      BDMarker.name,
-      BDEndMarker.name,
-      ITMarker.name,
-      ITEndMarker.name,
-      SCMarker.name,
-      SCEndMarker.name,
-      BDITMarker.name,
-      BDITEndMarker.name,
-      NDMarker.name,
-      NDEndMarker.name,
-      NOMarker.name,
-      NOEndMarker.name,
-      SUPMarker.name,
-      SUPEndMarker.name,
-      IEMarker.name,
-      RQMarker.name,
-      RQEndMarker.name,
+      TextBlock,
+      BKMarker,
+      BKEndMarker,
+      BDMarker,
+      BDEndMarker,
+      ITMarker,
+      ITEndMarker,
+      SCMarker,
+      SCEndMarker,
+      BDITMarker,
+      BDITEndMarker,
+      NDMarker,
+      NDEndMarker,
+      NOMarker,
+      NOEndMarker,
+      SUPMarker,
+      SUPEndMarker,
+      IEMarker,
+      RQMarker,
+      RQEndMarker,
     ];
   }
 }

@@ -20,15 +20,15 @@ class PMarker extends marker_1.Marker {
     }
     getAllowedContents() {
         return [
-            v_marker_1.VMarker.name,
-            b_marker_1.BMarker.name,
-            sp_marker_1.SPMarker.name,
-            text_block_1.TextBlock.name,
-            f_marker_1.FMarker.name,
-            f_end_marker_1.FEndMarker.name,
-            li_marker_1.LIMarker.name,
-            q_marker_1.QMarker.name,
-            x_marker_1.XMarker.name,
+            v_marker_1.VMarker,
+            b_marker_1.BMarker,
+            sp_marker_1.SPMarker,
+            text_block_1.TextBlock,
+            f_marker_1.FMarker,
+            f_end_marker_1.FEndMarker,
+            li_marker_1.LIMarker,
+            q_marker_1.QMarker,
+            x_marker_1.XMarker,
         ];
     }
 }

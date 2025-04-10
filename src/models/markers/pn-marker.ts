@@ -10,7 +10,7 @@ export class PNMarker extends Marker {
     return input.trim();
   }
 
-  public getAllowedContents(): string[] {
-    return [TextBlock.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TextBlock];
   }
 }

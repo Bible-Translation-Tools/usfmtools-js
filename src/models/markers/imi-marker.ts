@@ -16,15 +16,15 @@ export class IMIMarker extends Marker {
     return input.trim();
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      TextBlock.name,
-      BKMarker.name,
-      BKEndMarker.name,
-      BDMarker.name,
-      BDEndMarker.name,
-      ITMarker.name,
-      ITEndMarker.name,
+      TextBlock,
+      BKMarker,
+      BKEndMarker,
+      BDMarker,
+      BDEndMarker,
+      ITMarker,
+      ITEndMarker,
     ];
   }
 }

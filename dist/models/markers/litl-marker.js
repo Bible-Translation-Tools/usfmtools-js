@@ -11,7 +11,7 @@ class LITLMarker extends marker_1.Marker {
         return input.trim();
     }
     getAllowedContents() {
-        return [text_block_1.TextBlock.name];
+        return [text_block_1.TextBlock];
     }
 }
 exports.LITLMarker = LITLMarker;

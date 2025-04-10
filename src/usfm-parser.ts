@@ -192,7 +192,7 @@ export class USFMParser {
       const marker = markers[markerIndex];
       if (
         marker instanceof TRMarker &&
-        !output.getTypesPathToLastMarker().includes(TableBlock.name)
+        !output.getTypesPathToLastMarker().includes(TableBlock)
       ) {
         output.insert(new TableBlock());
       }

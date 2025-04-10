@@ -17,16 +17,16 @@ export class PCMarker extends Marker {
     return input.trimStart();
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      VMarker.name,
-      BMarker.name,
-      SPMarker.name,
-      TextBlock.name,
-      FMarker.name,
-      FEndMarker.name,
-      LIMarker.name,
-      QMarker.name,
+      VMarker,
+      BMarker,
+      SPMarker,
+      TextBlock,
+      FMarker,
+      FEndMarker,
+      LIMarker,
+      QMarker,
     ];
   }
 }

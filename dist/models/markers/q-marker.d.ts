@@ -5,6 +5,6 @@ export declare class QMarker extends Marker {
     isPoetryBlock: boolean;
     getIdentifier(): string;
     preProcess(input: string): string;
-    getAllowedContents(): string[];
+    getAllowedContents(): (new (...args: any[]) => Marker)[];
     tryInsert(input: Marker): boolean;
 }

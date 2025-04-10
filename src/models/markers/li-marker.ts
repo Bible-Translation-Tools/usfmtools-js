@@ -13,7 +13,7 @@ export class LIMarker extends Marker {
     return input.trim();
   }
 
-  public getAllowedContents(): string[] {
-    return [VMarker.name, TextBlock.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [VMarker, TextBlock];
   }
 }

@@ -31,26 +31,26 @@ export class SMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [
-      RMarker.name,
-      FMarker.name,
-      FEndMarker.name,
-      SCMarker.name,
-      SCEndMarker.name,
-      EMMarker.name,
-      EMEndMarker.name,
-      BDMarker.name,
-      BDEndMarker.name,
-      ITMarker.name,
-      ITEndMarker.name,
-      BDITMarker.name,
-      BDITEndMarker.name,
-      NOMarker.name,
-      NOEndMarker.name,
-      SUPMarker.name,
-      SUPEndMarker.name,
-      TextBlock.name,
+      RMarker,
+      FMarker,
+      FEndMarker,
+      SCMarker,
+      SCEndMarker,
+      EMMarker,
+      EMEndMarker,
+      BDMarker,
+      BDEndMarker,
+      ITMarker,
+      ITEndMarker,
+      BDITMarker,
+      BDITEndMarker,
+      NOMarker,
+      NOEndMarker,
+      SUPMarker,
+      SUPEndMarker,
+      TextBlock,
     ];
   }
 }

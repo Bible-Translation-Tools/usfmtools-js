@@ -18,7 +18,7 @@ export class MRMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [FMarker.name, FEndMarker.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [FMarker, FEndMarker];
   }
 }

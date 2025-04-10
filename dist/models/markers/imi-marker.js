@@ -18,13 +18,13 @@ class IMIMarker extends marker_1.Marker {
     }
     getAllowedContents() {
         return [
-            text_block_1.TextBlock.name,
-            bk_marker_1.BKMarker.name,
-            bk_end_marker_1.BKEndMarker.name,
-            bd_marker_1.BDMarker.name,
-            bd_end_marker_1.BDEndMarker.name,
-            it_marker_1.ITMarker.name,
-            it_end_marker_1.ITEndMarker.name,
+            text_block_1.TextBlock,
+            bk_marker_1.BKMarker,
+            bk_end_marker_1.BKEndMarker,
+            bd_marker_1.BDMarker,
+            bd_end_marker_1.BDEndMarker,
+            it_marker_1.ITMarker,
+            it_end_marker_1.ITEndMarker,
         ];
     }
 }

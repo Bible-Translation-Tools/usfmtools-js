@@ -10,7 +10,7 @@ export class SLSMarker extends Marker {
     return input.trim();
   }
 
-  public getAllowedContents(): string[] {
-    return [TextBlock.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TextBlock];
   }
 }

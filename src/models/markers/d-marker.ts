@@ -17,13 +17,7 @@ export class DMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [
-      FMarker.name,
-      FEndMarker.name,
-      ITMarker.name,
-      ITEndMarker.name,
-      TextBlock.name,
-    ];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [FMarker, FEndMarker, ITMarker, ITEndMarker, TextBlock];
   }
 }

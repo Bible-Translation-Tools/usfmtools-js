@@ -15,13 +15,7 @@ class FQAMarker extends marker_1.Marker {
         return input.trimStart();
     }
     getAllowedContents() {
-        return [
-            text_block_1.TextBlock.name,
-            tl_marker_1.TLMarker.name,
-            tl_end_marker_1.TLEndMarker.name,
-            w_marker_1.WMarker.name,
-            w_end_marker_1.WEndMarker.name,
-        ];
+        return [text_block_1.TextBlock, tl_marker_1.TLMarker, tl_end_marker_1.TLEndMarker, w_marker_1.WMarker, w_end_marker_1.WEndMarker];
     }
 }
 exports.FQAMarker = FQAMarker;

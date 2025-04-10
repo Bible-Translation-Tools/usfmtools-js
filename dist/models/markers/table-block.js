@@ -8,7 +8,7 @@ class TableBlock extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [tr_marker_1.TRMarker.name];
+        return [tr_marker_1.TRMarker];
     }
 }
 exports.TableBlock = TableBlock;

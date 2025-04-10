@@ -184,7 +184,7 @@ class USFMParser {
         for (let markerIndex = 0; markerIndex < markers.length; markerIndex++) {
             const marker = markers[markerIndex];
             if (marker instanceof tr_marker_1.TRMarker &&
-                !output.getTypesPathToLastMarker().includes(table_block_1.TableBlock.name)) {
+                !output.getTypesPathToLastMarker().includes(table_block_1.TableBlock)) {
                 output.insert(new table_block_1.TableBlock());
             }
             if (marker instanceof q_marker_1.QMarker &&
@@ -754,4 +754,4 @@ class USFMParser {
     }
 }
 exports.USFMParser = USFMParser;
-USFMParser.splitRegex = /\\\\([a-z0-9-]*\**)([^\\\\]*)/g;
+USFMParser.splitRegex = /\\([a-z0-9-]*\**)([^\\]*)/g;

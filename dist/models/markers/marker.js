@@ -28,7 +28,7 @@ class Marker {
             this.contents[this.contents.length - 1].tryInsert(input)) {
             return true;
         }
-        if (this.getAllowedContents().includes(input.constructor.name)) {
+        if (this.getAllowedContents().some((type) => input instanceof type)) {
             this.contents.push(input);
             return true;
         }
@@ -39,7 +39,7 @@ class Marker {
      */
     getTypesPathToLastMarker() {
         const types = [];
-        types.push(this.constructor.name);
+        types.push(this.constructor);
         if (this.contents.length > 0) {
             types.push(...this.contents[this.contents.length - 1].getTypesPathToLastMarker());
         }
@@ -134,18 +134,18 @@ class Marker {
     getChildMarkers(type, ignoredParents = null) {
         const output = [];
         const stack = [];
-        if (ignoredParents && ignoredParents.includes(this.constructor.name)) {
+        if (ignoredParents && ignoredParents.some((type) => this instanceof type)) {
             return output;
         }
         stack.push(this);
         while (stack.length > 0) {
             const marker = stack.pop();
-            if (marker.constructor.name === type) {
+            if (marker instanceof type) {
                 output.push(marker);
             }
             for (const child of marker.contents) {
                 if (!ignoredParents ||
-                    !ignoredParents.includes(child.constructor.name)) {
+                    !ignoredParents.some((type) => child instanceof type)) {
                     stack.push(child);
                 }
             }

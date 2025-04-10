@@ -14,7 +14,7 @@ class IOMarker extends marker_1.Marker {
         return "io";
     }
     getAllowedContents() {
-        return [text_block_1.TextBlock.name, ior_marker_1.IORMarker.name, ior_end_marker_1.IOREndMarker.name];
+        return [text_block_1.TextBlock, ior_marker_1.IORMarker, ior_end_marker_1.IOREndMarker];
     }
 }
 exports.IOMarker = IOMarker;

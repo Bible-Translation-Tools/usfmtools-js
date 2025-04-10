@@ -5,5 +5,5 @@ import { Marker } from "./marker";
 export declare class EMMarker extends Marker {
     getIdentifier(): string;
     preProcess(input: string): string;
-    getAllowedContents(): string[];
+    getAllowedContents(): (new (...args: any[]) => Marker)[];
 }

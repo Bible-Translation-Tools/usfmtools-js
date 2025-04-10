@@ -3,5 +3,5 @@ export declare class XOMarker extends Marker {
     originRef: string;
     getIdentifier(): string;
     preProcess(input: string): string;
-    getAllowedContents(): string[];
+    getAllowedContents(): (new (...args: any[]) => Marker)[];
 }

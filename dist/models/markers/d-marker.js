@@ -16,13 +16,7 @@ class DMarker extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [
-            f_marker_1.FMarker.name,
-            f_end_marker_1.FEndMarker.name,
-            it_marker_1.ITMarker.name,
-            it_end_marker_1.ITEndMarker.name,
-            text_block_1.TextBlock.name,
-        ];
+        return [f_marker_1.FMarker, f_end_marker_1.FEndMarker, it_marker_1.ITMarker, it_end_marker_1.ITEndMarker, text_block_1.TextBlock];
     }
 }
 exports.DMarker = DMarker;

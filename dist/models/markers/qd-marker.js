@@ -21,13 +21,13 @@ class QDMarker extends marker_1.Marker {
     }
     getAllowedContents() {
         return [
-            text_block_1.TextBlock.name,
-            f_marker_1.FMarker.name,
-            f_end_marker_1.FEndMarker.name,
-            tl_marker_1.TLMarker.name,
-            tl_end_marker_1.TLEndMarker.name,
-            w_marker_1.WMarker.name,
-            w_end_marker_1.WEndMarker.name,
+            text_block_1.TextBlock,
+            f_marker_1.FMarker,
+            f_end_marker_1.FEndMarker,
+            tl_marker_1.TLMarker,
+            tl_end_marker_1.TLEndMarker,
+            w_marker_1.WMarker,
+            w_end_marker_1.WEndMarker,
         ];
     }
 }

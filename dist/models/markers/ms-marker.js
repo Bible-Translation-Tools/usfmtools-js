@@ -16,7 +16,7 @@ class MSMarker extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [mr_marker_1.MRMarker.name];
+        return [mr_marker_1.MRMarker];
     }
 }
 exports.MSMarker = MSMarker;

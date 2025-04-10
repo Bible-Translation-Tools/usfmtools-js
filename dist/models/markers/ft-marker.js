@@ -26,21 +26,21 @@ class FTMarker extends marker_1.Marker {
     }
     getAllowedContents() {
         return [
-            tl_marker_1.TLMarker.name,
-            tl_end_marker_1.TLEndMarker.name,
-            w_marker_1.WMarker.name,
-            w_end_marker_1.WEndMarker.name,
-            text_block_1.TextBlock.name,
-            it_marker_1.ITMarker.name,
-            it_end_marker_1.ITEndMarker.name,
-            sc_marker_1.SCMarker.name,
-            sc_end_marker_1.SCEndMarker.name,
-            sup_marker_1.SUPMarker.name,
-            sup_end_marker_1.SUPEndMarker.name,
-            bk_marker_1.BKMarker.name,
-            bk_end_marker_1.BKEndMarker.name,
-            bd_marker_1.BDMarker.name,
-            bd_end_marker_1.BDEndMarker.name,
+            tl_marker_1.TLMarker,
+            tl_end_marker_1.TLEndMarker,
+            w_marker_1.WMarker,
+            w_end_marker_1.WEndMarker,
+            text_block_1.TextBlock,
+            it_marker_1.ITMarker,
+            it_end_marker_1.ITEndMarker,
+            sc_marker_1.SCMarker,
+            sc_end_marker_1.SCEndMarker,
+            sup_marker_1.SUPMarker,
+            sup_end_marker_1.SUPEndMarker,
+            bk_marker_1.BKMarker,
+            bk_end_marker_1.BKEndMarker,
+            bd_marker_1.BDMarker,
+            bd_end_marker_1.BDEndMarker,
         ];
     }
 }

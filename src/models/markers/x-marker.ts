@@ -16,7 +16,7 @@ export class XMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [XOMarker.name, XTMarker.name, XQMarker.name, TextBlock.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [XOMarker, XTMarker, XQMarker, TextBlock];
   }
 }

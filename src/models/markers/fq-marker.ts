@@ -14,13 +14,7 @@ export class FQMarker extends Marker {
     return input.trimStart();
   }
 
-  public getAllowedContents(): string[] {
-    return [
-      TextBlock.name,
-      TLMarker.name,
-      TLEndMarker.name,
-      WMarker.name,
-      WEndMarker.name,
-    ];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TextBlock, TLMarker, TLEndMarker, WMarker, WEndMarker];
   }
 }

@@ -13,7 +13,7 @@ export abstract class Marker {
   /**
    * @return string[]
    */
-  public getAllowedContents(): string[] {
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [];
   }
 
@@ -34,7 +34,7 @@ export abstract class Marker {
       return true;
     }
 
-    if (this.getAllowedContents().includes(input.constructor.name)) {
+    if (this.getAllowedContents().some((type) => input instanceof type)) {
       this.contents.push(input);
       return true;
     }
@@ -44,9 +44,9 @@ export abstract class Marker {
   /**
    * @return string[]
    */
-  public getTypesPathToLastMarker(): string[] {
-    const types: string[] = [];
-    types.push(this.constructor.name);
+  public getTypesPathToLastMarker(): (new (...args: any[]) => Marker)[] {
+    const types: (new (...args: any[]) => Marker)[] = [];
+    types.push(this.constructor as new (...args: any[]) => Marker);
     if (this.contents.length > 0) {
       types.push(
         ...this.contents[this.contents.length - 1].getTypesPathToLastMarker()
@@ -151,14 +151,14 @@ export abstract class Marker {
    * @param ignoredParents
    * @return Marker[]
    */
-  public getChildMarkers(
-    type: string,
-    ignoredParents: string[] | null = null
-  ): Marker[] {
-    const output: Marker[] = [];
+  public getChildMarkers<T extends Marker>(
+    type: new (...args: any[]) => T,
+    ignoredParents: (new (...args: any[]) => Marker)[] | null = null
+  ): T[] {
+    const output: T[] = [];
     const stack: Marker[] = [];
 
-    if (ignoredParents && ignoredParents.includes(this.constructor.name)) {
+    if (ignoredParents && ignoredParents.some((type) => this instanceof type)) {
       return output;
     }
 
@@ -166,13 +166,13 @@ export abstract class Marker {
 
     while (stack.length > 0) {
       const marker = stack.pop()!;
-      if (marker.constructor.name === type) {
-        output.push(marker);
+      if (marker instanceof type) {
+        output.push(marker as T);
       }
       for (const child of marker.contents) {
         if (
           !ignoredParents ||
-          !ignoredParents.includes(child.constructor.name)
+          !ignoredParents.some((type) => child instanceof type)
         ) {
           stack.push(child);
         }

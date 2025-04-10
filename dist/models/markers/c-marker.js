@@ -54,40 +54,40 @@ class CMarker extends marker_1.Marker {
     }
     getAllowedContents() {
         return [
-            m_marker_1.MMarker.name,
-            ms_marker_1.MSMarker.name,
-            s_marker_1.SMarker.name,
-            b_marker_1.BMarker.name,
-            d_marker_1.DMarker.name,
-            v_marker_1.VMarker.name,
-            p_marker_1.PMarker.name,
-            pc_marker_1.PCMarker.name,
-            cd_marker_1.CDMarker.name,
-            cp_marker_1.CPMarker.name,
-            cl_marker_1.CLMarker.name,
-            q_marker_1.QMarker.name,
-            qs_marker_1.QSMarker.name,
-            qs_end_marker_1.QSEndMarker.name,
-            qa_marker_1.QAMarker.name,
-            nb_marker_1.NBMarker.name,
-            r_marker_1.RMarker.name,
-            li_marker_1.LIMarker.name,
-            table_block_1.TableBlock.name,
-            mi_marker_1.MIMarker.name,
-            pi_marker_1.PIMarker.name,
-            ca_marker_1.CAMarker.name,
-            ca_end_marker_1.CAEndMarker.name,
-            sp_marker_1.SPMarker.name,
-            text_block_1.TextBlock.name,
-            rem_marker_1.REMMarker.name,
-            va_marker_1.VAMarker.name,
-            va_end_marker_1.VAEndMarker.name,
-            f_marker_1.FMarker.name,
-            f_end_marker_1.FEndMarker.name,
+            m_marker_1.MMarker,
+            ms_marker_1.MSMarker,
+            s_marker_1.SMarker,
+            b_marker_1.BMarker,
+            d_marker_1.DMarker,
+            v_marker_1.VMarker,
+            p_marker_1.PMarker,
+            pc_marker_1.PCMarker,
+            cd_marker_1.CDMarker,
+            cp_marker_1.CPMarker,
+            cl_marker_1.CLMarker,
+            q_marker_1.QMarker,
+            qs_marker_1.QSMarker,
+            qs_end_marker_1.QSEndMarker,
+            qa_marker_1.QAMarker,
+            nb_marker_1.NBMarker,
+            r_marker_1.RMarker,
+            li_marker_1.LIMarker,
+            table_block_1.TableBlock,
+            mi_marker_1.MIMarker,
+            pi_marker_1.PIMarker,
+            ca_marker_1.CAMarker,
+            ca_end_marker_1.CAEndMarker,
+            sp_marker_1.SPMarker,
+            text_block_1.TextBlock,
+            rem_marker_1.REMMarker,
+            va_marker_1.VAMarker,
+            va_end_marker_1.VAEndMarker,
+            f_marker_1.FMarker,
+            f_end_marker_1.FEndMarker,
         ];
     }
     getPublishedChapterMarker() {
-        const childCharacterMarkers = this.getChildMarkers(cp_marker_1.CPMarker.name);
+        const childCharacterMarkers = this.getChildMarkers(cp_marker_1.CPMarker);
         if (childCharacterMarkers.length > 0) {
             const marker = childCharacterMarkers[0];
             return marker.publishedChapterMarker;
@@ -97,7 +97,7 @@ class CMarker extends marker_1.Marker {
         }
     }
     customChapterLabel() {
-        const childChapLabelMarker = this.getChildMarkers(cl_marker_1.CLMarker.name);
+        const childChapLabelMarker = this.getChildMarkers(cl_marker_1.CLMarker);
         if (childChapLabelMarker.length > 0) {
             const marker = childChapLabelMarker[0];
             return marker.label;

@@ -20,7 +20,7 @@ class MRMarker extends marker_1.Marker {
         return "";
     }
     getAllowedContents() {
-        return [f_marker_1.FMarker.name, f_end_marker_1.FEndMarker.name];
+        return [f_marker_1.FMarker, f_end_marker_1.FEndMarker];
     }
 }
 exports.MRMarker = MRMarker;

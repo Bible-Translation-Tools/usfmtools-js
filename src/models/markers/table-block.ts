@@ -6,7 +6,7 @@ export class TableBlock extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [TRMarker.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [TRMarker];
   }
 }

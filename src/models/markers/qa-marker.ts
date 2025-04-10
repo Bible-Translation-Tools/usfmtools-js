@@ -17,7 +17,7 @@ export class QAMarker extends Marker {
     return "";
   }
 
-  public getAllowedContents(): string[] {
-    return [QACMarker.name, QACEndMarker.name];
+  public getAllowedContents(): (new (...args: any[]) => Marker)[] {
+    return [QACMarker, QACEndMarker];
   }
 }
