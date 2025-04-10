@@ -1,4 +1,4 @@
-# USFMToolsSharp
+# usfmtools-js
 
 A javascript parser and rendering toolkit for USFM.
 
