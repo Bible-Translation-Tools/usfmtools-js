@@ -1,0 +1,32 @@
+{
+  "name": "usfmtools",
+  "version": "1.0.0",
+  "description": "Parse .usfm files",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "test": "npx jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bible-Translation-Tools/usfmtools-js.git"
+  },
+  "keywords": [
+    "usfm",
+    "parser",
+    "javascript",
+    "typescript"
+  ],
+  "author": "mXaln",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bible-Translation-Tools/usfmtools-js/issues"
+  },
+  "homepage": "https://github.com/Bible-Translation-Tools/usfmtools-js#readme"
+}
