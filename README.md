@@ -54,5 +54,5 @@ const contents = fs.readFileSync("01-GEN.usfm", "utf8");
 const output = parser.parseFromString(contents.toString());
 
 // Get only chapter markers
-const chapters = chapters.getChildMarkers(CMarker);
+const chapters = output.getChildMarkers(CMarker);
 ```
