@@ -28,7 +28,7 @@ export declare abstract class Marker {
      * @param targets
      * @return array{Marker, Marker[]}
      */
-    getHierarchyToMultipleMarkers(targets: Marker[]): [Marker, Marker[]][];
+    getHierarchyToMultipleMarkers(targets: Marker[]): Map<Marker, Marker[]>;
     /**
      * A recursive search for children of a certain type
      * @param type

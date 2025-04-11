@@ -102,43 +102,68 @@ export abstract class Marker {
    */
   public getHierarchyToMultipleMarkers(
     targets: Marker[]
-  ): [Marker, Marker[]][] {
-    const output: [Marker, Marker[]][] = [];
-    const parents: [Marker, boolean][] = [];
-    let childMarkerContentsCount = 0;
+  ): Map<Marker, Marker[]> {
+    if (targets.length === 0) {
+      return new Map<Marker, Marker[]>();
+    }
+    if (this.contents.length === 0) {
+      const output = new Map<Marker, Marker[]>();
+      for (const target of targets) {
+        output.set(target, []);
+      }
+      return output;
+    }
 
-    const stack: [Marker, boolean][] = [];
-    stack.push([this, false]);
+    const output = new Map<Marker, Marker[]>();
+    const parents: { marker: Marker; isLastInParent: boolean }[] = [];
+    let childMarkerContentsCount: number;
+
+    const stack: { marker: Marker; isLastInParent: boolean }[] = [];
+    stack.push({ marker: this, isLastInParent: false });
+
+    // Use a Set for faster lookups in targets
+    const targetSet = new Set(targets);
 
     while (stack.length > 0) {
-      const [marker, isLastInParent] = stack.pop()!;
-      if (targets.includes(marker)) {
-        let tmp: Marker[] = [marker];
-        tmp.push(...parents.map((item) => item[0]));
-        tmp = tmp.reverse();
-        output.push([marker, tmp]);
-        if (output.length === targets.length) {
+      const { marker, isLastInParent } = stack.pop()!;
+
+      if (targetSet.has(marker)) {
+        const tmp: Marker[] = [marker];
+        for (const parent of parents) {
+          tmp.push(parent.marker);
+        }
+        tmp.reverse();
+        output.set(marker, tmp);
+        if (output.size === targets.length) {
           break;
         }
       }
 
-      if (marker instanceof Marker && marker.contents.length > 0) {
-        parents.push([marker, isLastInParent]);
+      if (marker.contents && marker.contents.length > 0) {
+        // We're descending
+        parents.push({ marker, isLastInParent });
+
         childMarkerContentsCount = marker.contents.length;
-        for (let i = 0; i < childMarkerContentsCount; i++) {
-          stack.push([marker.contents[i], i === 0]);
+        for (let i = childMarkerContentsCount - 1; i >= 0; i--) {
+          // Corrected: last child is when i === 0 in reverse iteration
+          stack.push({ marker: marker.contents[i], isLastInParent: i === 0 });
         }
-      } else if (isLastInParent) {
-        let [, isLast] = parents.pop()!;
-        while (isLast) {
-          [, isLast] = parents.pop()!;
+      } else if (stack.length === 0 || isLastInParent) {
+        // We're ascending
+        if (parents.length > 0) {
+          let tmp = parents.pop()!;
+          // keep moving up the parent stack until we aren't the last in a parent
+          while (tmp && tmp.isLastInParent === true && parents.length > 0) {
+            tmp = parents.pop()!;
+          }
         }
       }
     }
 
-    for (const i of targets) {
-      if (!output.some((item) => item[0] === i)) {
-        output.push([i, []]);
+    // Ensure all targets are in the output
+    for (const target of targets) {
+      if (!output.has(target)) {
+        output.set(target, []);
       }
     }
 
