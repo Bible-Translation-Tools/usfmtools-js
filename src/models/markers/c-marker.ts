@@ -46,9 +46,7 @@ export class CMarker extends Marker {
     const matches = input.match(CMarker.regex);
 
     if (matches && matches.length > 0) {
-      if (Marker.isNullOrWhiteSpace(matches[1])) {
-        this.number = 0;
-      } else {
+      if (!Marker.isNullOrWhiteSpace(matches[1])) {
         this.number = parseInt(matches[1], 10);
       }
 
@@ -60,6 +58,10 @@ export class CMarker extends Marker {
     }
 
     return "";
+  }
+
+  public isValid(): boolean {
+    return this.number !== undefined;
   }
 
   public getAllowedContents(): (new (...args: any[]) => Marker)[] {

@@ -26,6 +26,15 @@ export abstract class Marker {
     return input;
   }
 
+  /**
+   * Returns whether this marker has valid required values after preProcess.
+   * Override in subclasses that require specific values (e.g., chapter number, verse number, caller).
+   * @return boolean
+   */
+  public isValid(): boolean {
+    return true;
+  }
+
   public tryInsert(input: Marker): boolean {
     if (
       this.contents.length > 0 &&

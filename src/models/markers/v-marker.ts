@@ -129,6 +129,10 @@ export class VMarker extends Marker {
     return "";
   }
 
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.verseNumber);
+  }
+
   public getVerseCharacter(): string {
     const firstCharacterMarker = this.getChildMarkers(VPMarker);
     if (firstCharacterMarker.length > 0) {

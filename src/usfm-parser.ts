@@ -310,6 +310,13 @@ export class USFMParser {
     const output = this.selectMarker(identifier);
     const remainingText = output.preProcess(value);
 
+    // If \c marker has no chapter number, treat it as unknown
+    if (output instanceof CMarker && !/\d/.test(value)) {
+      const unknown = new UnknownMarker();
+      unknown.parsedIdentifier = "c";
+      return { marker: unknown, remainingText: value.trim() };
+    }
+
     return { marker: output, remainingText };
   }
 
