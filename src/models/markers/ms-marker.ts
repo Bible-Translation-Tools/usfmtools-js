@@ -9,6 +9,10 @@ export class MSMarker extends Marker {
     return "ms";
   }
 
+  public getRawValue(): string {
+    return this.heading || "";
+  }
+
   public preProcess(input: string): string {
     this.heading = input.trimStart();
     return "";

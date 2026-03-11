@@ -38,6 +38,10 @@ export class CMarker extends Marker {
     return "c";
   }
 
+  public getRawValue(): string {
+    return this.number !== undefined ? String(this.number) : "";
+  }
+
   public preProcess(input: string): string {
     const matches = input.match(CMarker.regex);
 

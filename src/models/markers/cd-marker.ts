@@ -8,6 +8,10 @@ export class CDMarker extends Marker {
     return "cd";
   }
 
+  public getRawValue(): string {
+    return this.description || "";
+  }
+
   public preProcess(input: string): string {
     this.description = input;
     return "";

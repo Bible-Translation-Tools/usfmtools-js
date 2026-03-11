@@ -7,6 +7,10 @@ export class FKMarker extends Marker {
     return "fk";
   }
 
+  public getRawValue(): string {
+    return this.footNoteKeyword || "";
+  }
+
   public preProcess(input: string): string {
     this.footNoteKeyword = input.trim();
     return "";

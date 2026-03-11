@@ -18,6 +18,18 @@ export class WMarker extends Marker {
     return "w";
   }
 
+  public getRawValue(): string {
+    let result = this.term || "";
+    const attrEntries = Object.entries(this.attributes);
+    if (attrEntries.length > 0) {
+      const attrStr = attrEntries
+        .map(([key, value]) => `${key}="${value}"`)
+        .join(" ");
+      result += "|" + attrStr;
+    }
+    return result;
+  }
+
   public preProcess(input: string): string {
     const trimmedInput = input.trim();
 

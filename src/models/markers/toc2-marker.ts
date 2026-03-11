@@ -7,6 +7,10 @@ export class TOC2Marker extends Marker {
     return "toc2";
   }
 
+  public getRawValue(): string {
+    return this.shortTableOfContentsText || "";
+  }
+
   public preProcess(input: string): string {
     this.shortTableOfContentsText = input.trim();
     return "";

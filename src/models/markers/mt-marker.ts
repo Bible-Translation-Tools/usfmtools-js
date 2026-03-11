@@ -8,6 +8,10 @@ export class MTMarker extends Marker {
     return "mt";
   }
 
+  public getRawValue(): string {
+    return this.title || "";
+  }
+
   public preProcess(input: string): string {
     this.title = input.trim();
     return "";

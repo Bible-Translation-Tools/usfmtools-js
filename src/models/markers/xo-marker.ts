@@ -8,6 +8,10 @@ export class XOMarker extends Marker {
     return "xo";
   }
 
+  public getRawValue(): string {
+    return this.originRef || "";
+  }
+
   public preProcess(input: string): string {
     this.originRef = input.trim();
     return "";

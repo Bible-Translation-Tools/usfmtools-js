@@ -7,6 +7,10 @@ export class VAMarker extends Marker {
     return "va";
   }
 
+  public getRawValue(): string {
+    return this.altVerseNumber || "";
+  }
+
   public preProcess(input: string): string {
     this.altVerseNumber = input.trim();
     return "";

@@ -216,6 +216,48 @@ export abstract class Marker {
     return this.contents[this.contents.length - 1].getLastDescendent();
   }
 
+  /**
+   * Returns the marker-specific data that appears after the identifier in raw USFM.
+   * Override in subclasses that store data (e.g., verse number, footnote caller).
+   * @return string
+   */
+  public getRawValue(): string {
+    return "";
+  }
+
+  /**
+   * Returns the raw USFM string representation of this marker and all its children.
+   * @return string
+   */
+  public getRawContents(): string {
+    let result = "";
+    const identifier = this.getIdentifier();
+
+    if (identifier) {
+      result = "\\" + identifier;
+    }
+
+    const rawValue = this.getRawValue();
+    if (rawValue) {
+      result += " " + rawValue;
+    }
+
+    for (const child of this.contents) {
+      const childContent = child.getRawContents();
+      if (
+        childContent.length > 0 &&
+        result.length > 0 &&
+        !result.endsWith(" ") &&
+        !childContent.startsWith(" ")
+      ) {
+        result += " ";
+      }
+      result += childContent;
+    }
+
+    return result;
+  }
+
   public static isNullOrWhiteSpace(str: string | null | undefined): boolean {
     return str === null || str === undefined || str.trim() === "";
   }

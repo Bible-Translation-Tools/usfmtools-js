@@ -7,6 +7,10 @@ export class CLMarker extends Marker {
     return "cl";
   }
 
+  public getRawValue(): string {
+    return this.label || "";
+  }
+
   public preProcess(input: string): string {
     this.label = input.trim();
     return "";

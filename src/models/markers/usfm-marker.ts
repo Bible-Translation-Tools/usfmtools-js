@@ -10,6 +10,10 @@ export class USFMMarker extends Marker {
     return "usfm";
   }
 
+  public getRawValue(): string {
+    return this.version || "";
+  }
+
   public preProcess(input: string): string {
     this.version = input.trim();
     return "";

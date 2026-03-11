@@ -7,6 +7,10 @@ export class TOC3Marker extends Marker {
     return "toc3";
   }
 
+  public getRawValue(): string {
+    return this.bookAbbreviation || "";
+  }
+
   public preProcess(input: string): string {
     this.bookAbbreviation = input.trim();
     return "";

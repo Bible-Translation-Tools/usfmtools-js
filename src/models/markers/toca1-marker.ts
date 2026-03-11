@@ -7,6 +7,10 @@ export class TOCA1Marker extends Marker {
     return "toca1";
   }
 
+  public getRawValue(): string {
+    return this.altLongTableOfContentsText || "";
+  }
+
   public preProcess(input: string): string {
     this.altLongTableOfContentsText = input.trim();
     return "";
