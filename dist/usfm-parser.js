@@ -265,10 +265,7 @@ class USFMParser {
                 }
             }
             else if (resultMarker instanceof invalid_marker_1.InvalidMarker) {
-                if (this.ignoreInvalidMarkers) {
-                    //output.push(new TextBlock(`[?:${resultMarker.parsedIdentifier}]`));
-                }
-                else {
+                if (!this.ignoreInvalidMarkers) {
                     // Set line number for invalid markers
                     resultMarker.line = this.calculateLineNumber(match.index, match.input);
                     output.push(resultMarker);
