@@ -6,6 +6,9 @@ class HMarker extends marker_1.Marker {
     getIdentifier() {
         return "h";
     }
+    getRawValue() {
+        return this.headerText || "";
+    }
     preProcess(input) {
         this.headerText = input.trim();
         return "";

@@ -6,6 +6,9 @@ class TOC2Marker extends marker_1.Marker {
     getIdentifier() {
         return "toc2";
     }
+    getRawValue() {
+        return this.shortTableOfContentsText || "";
+    }
     preProcess(input) {
         this.shortTableOfContentsText = input.trim();
         return "";

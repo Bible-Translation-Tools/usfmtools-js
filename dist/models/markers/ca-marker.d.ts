@@ -5,5 +5,7 @@ import { Marker } from "./marker";
 export declare class CAMarker extends Marker {
     altChapterNumber: string;
     getIdentifier(): string;
+    getRawValue(): string;
     preProcess(input: string): string;
+    isValid(): boolean;
 }

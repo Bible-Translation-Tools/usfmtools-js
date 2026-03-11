@@ -10,6 +10,9 @@ class SPMarker extends marker_1.Marker {
     getIdentifier() {
         return "sp";
     }
+    getRawValue() {
+        return this.speaker || "";
+    }
     preProcess(input) {
         this.speaker = input.trim();
         return "";

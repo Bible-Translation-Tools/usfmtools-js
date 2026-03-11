@@ -10,5 +10,8 @@ class TextBlock extends marker_1.Marker {
     getIdentifier() {
         return "";
     }
+    getRawContents() {
+        return this.text;
+    }
 }
 exports.TextBlock = TextBlock;

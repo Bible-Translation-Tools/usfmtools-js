@@ -23,6 +23,14 @@ class Marker {
     preProcess(input) {
         return input;
     }
+    /**
+     * Returns whether this marker has valid required values after preProcess.
+     * Override in subclasses that require specific values (e.g., chapter number, verse number, caller).
+     * @return boolean
+     */
+    isValid() {
+        return true;
+    }
     tryInsert(input) {
         if (this.contents.length > 0 &&
             this.contents[this.contents.length - 1].tryInsert(input)) {
@@ -33,6 +41,70 @@ class Marker {
             return true;
         }
         return false;
+    }
+    /**
+     * Find this marker's index within its parent's contents by searching from root
+     * @param root The root marker to search from
+     * @return number The index in parent's contents, or -1 if not found
+     */
+    findIndexInParent(root) {
+        const stack = [root];
+        while (stack.length > 0) {
+            const current = stack.pop();
+            // Check if current has this marker in its contents
+            const index = current.contents.indexOf(this);
+            if (index !== -1) {
+                return index;
+            }
+            // Add children to stack (reversed to maintain order)
+            for (let i = current.contents.length - 1; i >= 0; i--) {
+                stack.push(current.contents[i]);
+            }
+        }
+        return -1;
+    }
+    /**
+     * Get markers that come before this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsBefore(root) {
+        const index = this.findIndexInParent(root);
+        if (index <= 0) {
+            return [];
+        }
+        // Find parent and get contents before this marker
+        const stack = [root];
+        while (stack.length > 0) {
+            const current = stack.pop();
+            const idx = current.contents.indexOf(this);
+            if (idx !== -1) {
+                return current.contents.slice(0, idx);
+            }
+            for (let i = current.contents.length - 1; i >= 0; i--) {
+                stack.push(current.contents[i]);
+            }
+        }
+        return [];
+    }
+    /**
+     * Get markers that come after this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsAfter(root) {
+        const stack = [root];
+        while (stack.length > 0) {
+            const current = stack.pop();
+            const idx = current.contents.indexOf(this);
+            if (idx !== -1) {
+                return current.contents.slice(idx + 1);
+            }
+            for (let i = current.contents.length - 1; i >= 0; i--) {
+                stack.push(current.contents[i]);
+            }
+        }
+        return [];
     }
     /**
      * @return string[]
@@ -180,6 +252,40 @@ class Marker {
         if (this.contents.length === 0)
             return this;
         return this.contents[this.contents.length - 1].getLastDescendent();
+    }
+    /**
+     * Returns the marker-specific data that appears after the identifier in raw USFM.
+     * Override in subclasses that store data (e.g., verse number, footnote caller).
+     * @return string
+     */
+    getRawValue() {
+        return "";
+    }
+    /**
+     * Returns the raw USFM string representation of this marker and all its children.
+     * @return string
+     */
+    getRawContents() {
+        let result = "";
+        const identifier = this.getIdentifier();
+        if (identifier) {
+            result = "\\" + identifier;
+        }
+        const rawValue = this.getRawValue();
+        if (rawValue) {
+            result += " " + rawValue;
+        }
+        for (const child of this.contents) {
+            const childContent = child.getRawContents();
+            if (childContent.length > 0 &&
+                result.length > 0 &&
+                !result.endsWith(" ") &&
+                !childContent.startsWith(" ")) {
+                result += " ";
+            }
+            result += childContent;
+        }
+        return result;
     }
     static isNullOrWhiteSpace(str) {
         return str === null || str === undefined || str.trim() === "";

@@ -15,4 +15,8 @@ export class IDEMarker extends Marker {
     this.encoding = input.trim();
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.encoding);
+  }
 }

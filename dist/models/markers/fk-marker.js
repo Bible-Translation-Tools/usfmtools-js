@@ -6,6 +6,9 @@ class FKMarker extends marker_1.Marker {
     getIdentifier() {
         return "fk";
     }
+    getRawValue() {
+        return this.footNoteKeyword || "";
+    }
     preProcess(input) {
         this.footNoteKeyword = input.trim();
         return "";

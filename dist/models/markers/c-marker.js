@@ -36,13 +36,13 @@ class CMarker extends marker_1.Marker {
     getIdentifier() {
         return "c";
     }
+    getRawValue() {
+        return this.number !== undefined ? String(this.number) : "";
+    }
     preProcess(input) {
         const matches = input.match(CMarker.regex);
         if (matches && matches.length > 0) {
-            if (marker_1.Marker.isNullOrWhiteSpace(matches[1])) {
-                this.number = 0;
-            }
-            else {
+            if (!marker_1.Marker.isNullOrWhiteSpace(matches[1])) {
                 this.number = parseInt(matches[1], 10);
             }
             if (marker_1.Marker.isNullOrWhiteSpace(matches[2])) {
@@ -51,6 +51,9 @@ class CMarker extends marker_1.Marker {
             return matches[2].trimEnd();
         }
         return "";
+    }
+    isValid() {
+        return this.number !== undefined;
     }
     getAllowedContents() {
         return [

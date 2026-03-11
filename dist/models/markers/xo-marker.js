@@ -7,12 +7,18 @@ class XOMarker extends marker_1.Marker {
     getIdentifier() {
         return "xo";
     }
+    getRawValue() {
+        return this.originRef || "";
+    }
     preProcess(input) {
         this.originRef = input.trim();
         return "";
     }
     getAllowedContents() {
         return [text_block_1.TextBlock];
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.originRef);
     }
 }
 exports.XOMarker = XOMarker;

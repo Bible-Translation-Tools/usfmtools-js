@@ -136,6 +136,7 @@ export * from "./models/markers/toca2-marker";
 export * from "./models/markers/toca3-marker";
 export * from "./models/markers/tr-marker";
 export * from "./models/markers/unknown-marker";
+export * from "./models/markers/invalid-marker";
 export * from "./models/markers/usfm-document";
 export * from "./models/markers/usfm-marker";
 export * from "./models/markers/v-marker";

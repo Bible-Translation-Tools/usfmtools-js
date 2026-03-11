@@ -5,6 +5,7 @@ import { Marker } from "./marker";
 export declare class SPMarker extends Marker {
     speaker: string;
     getIdentifier(): string;
+    getRawValue(): string;
     preProcess(input: string): string;
     getAllowedContents(): (new (...args: any[]) => Marker)[];
 }

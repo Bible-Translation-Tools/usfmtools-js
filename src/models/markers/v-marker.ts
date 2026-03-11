@@ -95,7 +95,7 @@ import { XEndMarker } from "./x-end-marker";
 import { XMarker } from "./x-marker";
 
 export class VMarker extends Marker {
-  private static verseRegex: RegExp = /^ *([0-9]*-?[0-9]*) ?(.*)/;
+  private static verseRegex: RegExp = /^ *([0-9]*-?[0-9]*) ?([\s\S]*)/;
 
   public verseNumber: string;
   public startingVerse: number;
@@ -127,6 +127,10 @@ export class VMarker extends Marker {
       return matches[2] || "";
     }
     return "";
+  }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.verseNumber);
   }
 
   public getVerseCharacter(): string {

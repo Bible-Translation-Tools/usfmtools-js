@@ -56,4 +56,8 @@ export class WMarker extends Marker {
   public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [TextBlock];
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.term);
+  }
 }

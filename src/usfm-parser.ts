@@ -1,184 +1,189 @@
-import { ConvertToMarkerResult } from "./models/convert-to-marker-result";
-import { ADDEndMarker } from "./models/markers/add-end-marker";
-import { ADDMarker } from "./models/markers/add-marker";
-import { BMarker } from "./models/markers/b-marker";
-import { BDEndMarker } from "./models/markers/bd-end-marker";
-import { BDMarker } from "./models/markers/bd-marker";
-import { BDITEndMarker } from "./models/markers/bdit-end-marker";
-import { BDITMarker } from "./models/markers/bdit-marker";
-import { BKEndMarker } from "./models/markers/bk-end-marker";
-import { BKMarker } from "./models/markers/bk-marker";
-import { CMarker } from "./models/markers/c-marker";
-import { CAEndMarker } from "./models/markers/ca-end-marker";
-import { CAMarker } from "./models/markers/ca-marker";
-import { CLMarker } from "./models/markers/cl-marker";
-import { CLSMarker } from "./models/markers/cls-marker";
-import { CPMarker } from "./models/markers/cp-marker";
-import { DMarker } from "./models/markers/d-marker";
-import { EMEndMarker } from "./models/markers/em-end-marker";
-import { EMMarker } from "./models/markers/em-marker";
-import { FEndMarker } from "./models/markers/f-end-marker";
-import { FMarker } from "./models/markers/f-marker";
-import { FIGEndMarker } from "./models/markers/fig-end-marker";
-import { FIGMarker } from "./models/markers/fig-marker";
-import { FKMarker } from "./models/markers/fk-marker";
-import { FPMarker } from "./models/markers/fp-marker";
-import { FQEndMarker } from "./models/markers/fq-end-marker";
-import { FQMarker } from "./models/markers/fq-marker";
-import { FQAEndMarker } from "./models/markers/fqa-end-marker";
-import { FQAMarker } from "./models/markers/fqa-marker";
-import { FREndMarker } from "./models/markers/fr-end-marker";
-import { FRMarker } from "./models/markers/fr-marker";
-import { FTMarker } from "./models/markers/ft-marker";
-import { FVEndMarker } from "./models/markers/fv-end-marker";
-import { FVMarker } from "./models/markers/fv-marker";
-import { HMarker } from "./models/markers/h-marker";
-import { IBMarker } from "./models/markers/ib-marker";
-import { IDMarker } from "./models/markers/id-marker";
-import { IDEMarker } from "./models/markers/ide-marker";
-import { IEMarker } from "./models/markers/ie-marker";
-import { ILIMarker } from "./models/markers/ili-marker";
-import { IMMarker } from "./models/markers/im-marker";
-import { IMIMarker } from "./models/markers/imi-marker";
-import { IMQMarker } from "./models/markers/imq-marker";
-import { IMTMarker } from "./models/markers/imt-marker";
-import { IOMarker } from "./models/markers/io-marker";
-import { IOREndMarker } from "./models/markers/ior-end-marker";
-import { IORMarker } from "./models/markers/ior-marker";
-import { IOTMarker } from "./models/markers/iot-marker";
-import { IPMarker } from "./models/markers/ip-marker";
-import { IPIMarker } from "./models/markers/ipi-marker";
-import { IPQMarker } from "./models/markers/ipq-marker";
-import { IPRMarker } from "./models/markers/ipr-marker";
-import { IQMarker } from "./models/markers/iq-marker";
-import { ISMarker } from "./models/markers/is-marker";
-import { ITEndMarker } from "./models/markers/it-end-marker";
-import { ITMarker } from "./models/markers/it-marker";
-import { KEndMarker } from "./models/markers/k-end-marker";
-import { KMarker } from "./models/markers/k-marker";
-import { LFMarker } from "./models/markers/lf-marker";
-import { LIMarker } from "./models/markers/li-marker";
-import { LIKEndMarker } from "./models/markers/lik-end-marker";
-import { LIKMarker } from "./models/markers/lik-marker";
-import { LITLEndMarker } from "./models/markers/litl-end-marker";
-import { LITLMarker } from "./models/markers/litl-marker";
-import { LIVEndMarker } from "./models/markers/liv-end-marker";
-import { LIVMarker } from "./models/markers/liv-marker";
-import { MMarker } from "./models/markers/m-marker";
-import { Marker } from "./models/markers/marker";
-import { MIMarker } from "./models/markers/mi-marker";
-import { MRMarker } from "./models/markers/mr-marker";
-import { MSMarker } from "./models/markers/ms-marker";
-import { MTMarker } from "./models/markers/mt-marker";
-import { NBMarker } from "./models/markers/nb-marker";
-import { NDEndMarker } from "./models/markers/nd-end-marker";
-import { NDMarker } from "./models/markers/nd-marker";
-import { NOEndMarker } from "./models/markers/no-end-marker";
-import { NOMarker } from "./models/markers/no-marker";
-import { ORDEndMarker } from "./models/markers/ord-end-marker";
-import { ORDMarker } from "./models/markers/ord-marker";
-import { PMarker } from "./models/markers/p-marker";
-import { PCMarker } from "./models/markers/pc-marker";
-import { PIMarker } from "./models/markers/pi-marker";
-import { PMCMarker } from "./models/markers/pmc-marker";
-import { PMOMarker } from "./models/markers/pmo-marker";
-import { PMRMarker } from "./models/markers/pmr-marker";
-import { PNEndMarker } from "./models/markers/pn-end-marker";
-import { PNMarker } from "./models/markers/pn-marker";
-import { PNGEndMarker } from "./models/markers/png-end-marker";
-import { PNGMarker } from "./models/markers/png-marker";
-import { PRMarker } from "./models/markers/pr-marker";
-import { PROEndMarker } from "./models/markers/pro-end-marker";
-import { PROMarker } from "./models/markers/pro-marker";
-import { QMarker } from "./models/markers/q-marker";
-import { QAMarker } from "./models/markers/qa-marker";
-import { QACEndMarker } from "./models/markers/qac-end-marker";
-import { QACMarker } from "./models/markers/qac-marker";
-import { QCMarker } from "./models/markers/qc-marker";
-import { QDMarker } from "./models/markers/qd-marker";
-import { QMMarker } from "./models/markers/qm-marker";
-import { QRMarker } from "./models/markers/qr-marker";
-import { QSEndMarker } from "./models/markers/qs-end-marker";
-import { QSMarker } from "./models/markers/qs-marker";
-import { QTEndMarker } from "./models/markers/qt-end-marker";
-import { QTMarker } from "./models/markers/qt-marker";
-import { RMarker } from "./models/markers/r-marker";
-import { RBEndMarker } from "./models/markers/rb-end-marker";
-import { RBMarker } from "./models/markers/rb-marker";
-import { REMMarker } from "./models/markers/rem-marker";
-import { RQEndMarker } from "./models/markers/rq-end-marker";
-import { RQMarker } from "./models/markers/rq-marker";
-import { SMarker } from "./models/markers/s-marker";
-import { SCEndMarker } from "./models/markers/sc-end-marker";
-import { SCMarker } from "./models/markers/sc-marker";
-import { SIGEndMarker } from "./models/markers/sig-end-marker";
-import { SIGMarker } from "./models/markers/sig-marker";
-import { SLSEndMarker } from "./models/markers/sls-end-marker";
-import { SLSMarker } from "./models/markers/sls-marker";
-import { SPMarker } from "./models/markers/sp-marker";
-import { STSMarker } from "./models/markers/sts-marker";
-import { SUPEndMarker } from "./models/markers/sup-end-marker";
-import { SUPMarker } from "./models/markers/sup-marker";
-import { TableBlock } from "./models/markers/table-block";
-import { TCMarker } from "./models/markers/tc-marker";
-import { TCRMarker } from "./models/markers/tcr-marker";
-import { TextBlock } from "./models/markers/text-block";
-import { THMarker } from "./models/markers/th-marker";
-import { THRMarker } from "./models/markers/thr-marker";
-import { TLEndMarker } from "./models/markers/tl-end-marker";
-import { TLMarker } from "./models/markers/tl-marker";
-import { TOC1Marker } from "./models/markers/toc1-marker";
-import { TOC2Marker } from "./models/markers/toc2-marker";
-import { TOC3Marker } from "./models/markers/toc3-marker";
-import { TOCA1Marker } from "./models/markers/toca1-marker";
-import { TOCA2Marker } from "./models/markers/toca2-marker";
-import { TOCA3Marker } from "./models/markers/toca3-marker";
-import { TRMarker } from "./models/markers/tr-marker";
-import { UnknownMarker } from "./models/markers/unknown-marker";
-import { USFMDocument } from "./models/markers/usfm-document";
-import { USFMMarker } from "./models/markers/usfm-marker";
-import { VMarker } from "./models/markers/v-marker";
-import { VAEndMarker } from "./models/markers/va-end-marker";
-import { VAMarker } from "./models/markers/va-marker";
-import { VPEndMarker } from "./models/markers/vp-end-marker";
-import { VPMarker } from "./models/markers/vp-marker";
-import { WEndMarker } from "./models/markers/w-end-marker";
-import { WMarker } from "./models/markers/w-marker";
-import { WAEndMarker } from "./models/markers/wa-end-marker";
-import { WAMarker } from "./models/markers/wa-marker";
-import { WGEndMarker } from "./models/markers/wg-end-marker";
-import { WGMarker } from "./models/markers/wg-marker";
-import { WHEndMarker } from "./models/markers/wh-end-marker";
-import { WHMarker } from "./models/markers/wh-marker";
-import { WJEndMarker } from "./models/markers/wj-end-marker";
-import { WJMarker } from "./models/markers/wj-marker";
-import { XEndMarker } from "./models/markers/x-end-marker";
-import { XMarker } from "./models/markers/x-marker";
-import { XOMarker } from "./models/markers/xo-marker";
-import { XQMarker } from "./models/markers/xq-marker";
-import { XTMarker } from "./models/markers/xt-marker";
+import {ConvertToMarkerResult} from "./models/convert-to-marker-result";
+import {ADDEndMarker} from "./models/markers/add-end-marker";
+import {ADDMarker} from "./models/markers/add-marker";
+import {BMarker} from "./models/markers/b-marker";
+import {BDEndMarker} from "./models/markers/bd-end-marker";
+import {BDMarker} from "./models/markers/bd-marker";
+import {BDITEndMarker} from "./models/markers/bdit-end-marker";
+import {BDITMarker} from "./models/markers/bdit-marker";
+import {BKEndMarker} from "./models/markers/bk-end-marker";
+import {BKMarker} from "./models/markers/bk-marker";
+import {CMarker} from "./models/markers/c-marker";
+import {CAEndMarker} from "./models/markers/ca-end-marker";
+import {CAMarker} from "./models/markers/ca-marker";
+import {CLMarker} from "./models/markers/cl-marker";
+import {CLSMarker} from "./models/markers/cls-marker";
+import {CPMarker} from "./models/markers/cp-marker";
+import {DMarker} from "./models/markers/d-marker";
+import {EMEndMarker} from "./models/markers/em-end-marker";
+import {EMMarker} from "./models/markers/em-marker";
+import {FEndMarker} from "./models/markers/f-end-marker";
+import {FMarker} from "./models/markers/f-marker";
+import {FIGEndMarker} from "./models/markers/fig-end-marker";
+import {FIGMarker} from "./models/markers/fig-marker";
+import {FKMarker} from "./models/markers/fk-marker";
+import {FPMarker} from "./models/markers/fp-marker";
+import {FQEndMarker} from "./models/markers/fq-end-marker";
+import {FQMarker} from "./models/markers/fq-marker";
+import {FQAEndMarker} from "./models/markers/fqa-end-marker";
+import {FQAMarker} from "./models/markers/fqa-marker";
+import {FREndMarker} from "./models/markers/fr-end-marker";
+import {FRMarker} from "./models/markers/fr-marker";
+import {FTMarker} from "./models/markers/ft-marker";
+import {FVEndMarker} from "./models/markers/fv-end-marker";
+import {FVMarker} from "./models/markers/fv-marker";
+import {HMarker} from "./models/markers/h-marker";
+import {IBMarker} from "./models/markers/ib-marker";
+import {IDMarker} from "./models/markers/id-marker";
+import {IDEMarker} from "./models/markers/ide-marker";
+import {IEMarker} from "./models/markers/ie-marker";
+import {ILIMarker} from "./models/markers/ili-marker";
+import {IMMarker} from "./models/markers/im-marker";
+import {IMIMarker} from "./models/markers/imi-marker";
+import {IMQMarker} from "./models/markers/imq-marker";
+import {IMTMarker} from "./models/markers/imt-marker";
+import {IOMarker} from "./models/markers/io-marker";
+import {IOREndMarker} from "./models/markers/ior-end-marker";
+import {IORMarker} from "./models/markers/ior-marker";
+import {IOTMarker} from "./models/markers/iot-marker";
+import {IPMarker} from "./models/markers/ip-marker";
+import {IPIMarker} from "./models/markers/ipi-marker";
+import {IPQMarker} from "./models/markers/ipq-marker";
+import {IPRMarker} from "./models/markers/ipr-marker";
+import {IQMarker} from "./models/markers/iq-marker";
+import {ISMarker} from "./models/markers/is-marker";
+import {ITEndMarker} from "./models/markers/it-end-marker";
+import {ITMarker} from "./models/markers/it-marker";
+import {KEndMarker} from "./models/markers/k-end-marker";
+import {KMarker} from "./models/markers/k-marker";
+import {LFMarker} from "./models/markers/lf-marker";
+import {LIMarker} from "./models/markers/li-marker";
+import {LIKEndMarker} from "./models/markers/lik-end-marker";
+import {LIKMarker} from "./models/markers/lik-marker";
+import {LITLEndMarker} from "./models/markers/litl-end-marker";
+import {LITLMarker} from "./models/markers/litl-marker";
+import {LIVEndMarker} from "./models/markers/liv-end-marker";
+import {LIVMarker} from "./models/markers/liv-marker";
+import {MMarker} from "./models/markers/m-marker";
+import {Marker} from "./models/markers/marker";
+import {MIMarker} from "./models/markers/mi-marker";
+import {MRMarker} from "./models/markers/mr-marker";
+import {MSMarker} from "./models/markers/ms-marker";
+import {MTMarker} from "./models/markers/mt-marker";
+import {NBMarker} from "./models/markers/nb-marker";
+import {NDEndMarker} from "./models/markers/nd-end-marker";
+import {NDMarker} from "./models/markers/nd-marker";
+import {NOEndMarker} from "./models/markers/no-end-marker";
+import {NOMarker} from "./models/markers/no-marker";
+import {ORDEndMarker} from "./models/markers/ord-end-marker";
+import {ORDMarker} from "./models/markers/ord-marker";
+import {PMarker} from "./models/markers/p-marker";
+import {PCMarker} from "./models/markers/pc-marker";
+import {PIMarker} from "./models/markers/pi-marker";
+import {PMCMarker} from "./models/markers/pmc-marker";
+import {PMOMarker} from "./models/markers/pmo-marker";
+import {PMRMarker} from "./models/markers/pmr-marker";
+import {PNEndMarker} from "./models/markers/pn-end-marker";
+import {PNMarker} from "./models/markers/pn-marker";
+import {PNGEndMarker} from "./models/markers/png-end-marker";
+import {PNGMarker} from "./models/markers/png-marker";
+import {PRMarker} from "./models/markers/pr-marker";
+import {PROEndMarker} from "./models/markers/pro-end-marker";
+import {PROMarker} from "./models/markers/pro-marker";
+import {QMarker} from "./models/markers/q-marker";
+import {QAMarker} from "./models/markers/qa-marker";
+import {QACEndMarker} from "./models/markers/qac-end-marker";
+import {QACMarker} from "./models/markers/qac-marker";
+import {QCMarker} from "./models/markers/qc-marker";
+import {QDMarker} from "./models/markers/qd-marker";
+import {QMMarker} from "./models/markers/qm-marker";
+import {QRMarker} from "./models/markers/qr-marker";
+import {QSEndMarker} from "./models/markers/qs-end-marker";
+import {QSMarker} from "./models/markers/qs-marker";
+import {QTEndMarker} from "./models/markers/qt-end-marker";
+import {QTMarker} from "./models/markers/qt-marker";
+import {RMarker} from "./models/markers/r-marker";
+import {RBEndMarker} from "./models/markers/rb-end-marker";
+import {RBMarker} from "./models/markers/rb-marker";
+import {REMMarker} from "./models/markers/rem-marker";
+import {RQEndMarker} from "./models/markers/rq-end-marker";
+import {RQMarker} from "./models/markers/rq-marker";
+import {SMarker} from "./models/markers/s-marker";
+import {SCEndMarker} from "./models/markers/sc-end-marker";
+import {SCMarker} from "./models/markers/sc-marker";
+import {SIGEndMarker} from "./models/markers/sig-end-marker";
+import {SIGMarker} from "./models/markers/sig-marker";
+import {SLSEndMarker} from "./models/markers/sls-end-marker";
+import {SLSMarker} from "./models/markers/sls-marker";
+import {SPMarker} from "./models/markers/sp-marker";
+import {STSMarker} from "./models/markers/sts-marker";
+import {SUPEndMarker} from "./models/markers/sup-end-marker";
+import {SUPMarker} from "./models/markers/sup-marker";
+import {TableBlock} from "./models/markers/table-block";
+import {TCMarker} from "./models/markers/tc-marker";
+import {TCRMarker} from "./models/markers/tcr-marker";
+import {TextBlock} from "./models/markers/text-block";
+import {THMarker} from "./models/markers/th-marker";
+import {THRMarker} from "./models/markers/thr-marker";
+import {TLEndMarker} from "./models/markers/tl-end-marker";
+import {TLMarker} from "./models/markers/tl-marker";
+import {TOC1Marker} from "./models/markers/toc1-marker";
+import {TOC2Marker} from "./models/markers/toc2-marker";
+import {TOC3Marker} from "./models/markers/toc3-marker";
+import {TOCA1Marker} from "./models/markers/toca1-marker";
+import {TOCA2Marker} from "./models/markers/toca2-marker";
+import {TOCA3Marker} from "./models/markers/toca3-marker";
+import {TRMarker} from "./models/markers/tr-marker";
+import {UnknownMarker} from "./models/markers/unknown-marker";
+import {InvalidMarker} from "./models/markers/invalid-marker";
+import {USFMDocument} from "./models/markers/usfm-document";
+import {USFMMarker} from "./models/markers/usfm-marker";
+import {VMarker} from "./models/markers/v-marker";
+import {VAEndMarker} from "./models/markers/va-end-marker";
+import {VAMarker} from "./models/markers/va-marker";
+import {VPEndMarker} from "./models/markers/vp-end-marker";
+import {VPMarker} from "./models/markers/vp-marker";
+import {WEndMarker} from "./models/markers/w-end-marker";
+import {WMarker} from "./models/markers/w-marker";
+import {WAEndMarker} from "./models/markers/wa-end-marker";
+import {WAMarker} from "./models/markers/wa-marker";
+import {WGEndMarker} from "./models/markers/wg-end-marker";
+import {WGMarker} from "./models/markers/wg-marker";
+import {WHEndMarker} from "./models/markers/wh-end-marker";
+import {WHMarker} from "./models/markers/wh-marker";
+import {WJEndMarker} from "./models/markers/wj-end-marker";
+import {WJMarker} from "./models/markers/wj-marker";
+import {XEndMarker} from "./models/markers/x-end-marker";
+import {XMarker} from "./models/markers/x-marker";
+import {XOMarker} from "./models/markers/xo-marker";
+import {XQMarker} from "./models/markers/xq-marker";
+import {XTMarker} from "./models/markers/xt-marker";
 
 export class USFMParser {
   /** @var array|string[] */
-  private ignoredTags: string[] = [];
-  private ignoreUnknownMarkers: boolean = false;
+  private readonly ignoredTags: string[] = [];
+  private readonly ignoreUnknownMarkers: boolean = false;
+  private readonly ignoreInvalidMarkers: boolean = false;
   private static splitRegex: RegExp = /\\([a-z0-9-]*\**)([^\\]*)/g;
 
   /**
-   * @param ?string[] $tagsToIgnore
-   * @param bool $ignoreUnknownMarkers
+   * @param tagsToIgnore
+   * @param ignoreUnknownMarkers
+   * @param ignoreInvalidMarkers
    */
   constructor(
     tagsToIgnore: string[] | null = null,
-    ignoreUnknownMarkers: boolean = false
+    ignoreUnknownMarkers: boolean = false,
+    ignoreInvalidMarkers: boolean = false
   ) {
     this.ignoredTags = tagsToIgnore ?? [];
     this.ignoreUnknownMarkers = ignoreUnknownMarkers;
+    this.ignoreInvalidMarkers = ignoreInvalidMarkers;
   }
 
   /**
    * Parses a string into a USFMDocument
-   * @param string $input A USFM string
+   * @param input A USFM string
    * @return USFMDocument A USFMDocument representing the input
    */
   public parseFromString(input: string): USFMDocument {
@@ -214,7 +219,7 @@ export class USFMParser {
 
   /**
    * Removes all the unnecessary whitespace while preserving space between closing markers and opening markers
-   * @param (Marker|USFMDocument)[] $input
+   * @param input
    * @return (Marker|USFMDocument)[]
    */
   private cleanWhitespace(
@@ -259,7 +264,7 @@ export class USFMParser {
 
   /**
    * Generate a list of Markers from a string
-   * @param string $input USFM String to tokenize
+   * @param input USFM String to tokenize
    * @return (Marker|USFMDocument)[] A List of Markers based upon the string
    */
   private tokenizeFromString(input: string): (Marker | USFMDocument)[] {
@@ -286,6 +291,12 @@ export class USFMParser {
         } else {
           output.push(resultMarker);
         }
+      } else if (resultMarker instanceof InvalidMarker) {
+        if (!this.ignoreInvalidMarkers) {
+          // Set line number for invalid markers
+          resultMarker.line = this.calculateLineNumber(match.index, match.input);
+          output.push(resultMarker);
+        }
       } else {
         output.push(resultMarker);
       }
@@ -299,8 +310,8 @@ export class USFMParser {
   }
 
   /**
-   * @param string $identifier
-   * @param string $value
+   * @param identifier
+   * @param value
    * @return ConvertToMarkerResult
    */
   private convertToMarker(
@@ -310,11 +321,35 @@ export class USFMParser {
     const output = this.selectMarker(identifier);
     const remainingText = output.preProcess(value);
 
+    // Check if marker has valid required values
+    if (!output.isValid()) {
+      const invalid = new InvalidMarker();
+      invalid.parsedIdentifier = output.getIdentifier();
+      return { marker: invalid, remainingText: value.trim() };
+    }
+
     return { marker: output, remainingText };
   }
 
   /**
-   * @param string $identifier
+   * Calculate the line number (1-based) from a position in the input string
+   * @param position
+   * @param input
+   * @return number
+   */
+  private calculateLineNumber(
+    position: number | undefined,
+    input: string | undefined
+  ): number {
+    if (position === undefined || input === undefined) {
+      return 1;
+    }
+    const substring = input.substring(0, position);
+    return substring.split("\n").length;
+  }
+
+  /**
+   * @param identifier
    * @return Marker
    */
   private selectMarker(identifier: string): Marker | USFMDocument {

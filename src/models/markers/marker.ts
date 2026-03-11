@@ -26,6 +26,15 @@ export abstract class Marker {
     return input;
   }
 
+  /**
+   * Returns whether this marker has valid required values after preProcess.
+   * Override in subclasses that require specific values (e.g., chapter number, verse number, caller).
+   * @return boolean
+   */
+  public isValid(): boolean {
+    return true;
+  }
+
   public tryInsert(input: Marker): boolean {
     if (
       this.contents.length > 0 &&
@@ -39,6 +48,86 @@ export abstract class Marker {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Find this marker's index within its parent's contents by searching from root
+   * @param root The root marker to search from
+   * @return number The index in parent's contents, or -1 if not found
+   */
+  private findIndexInParent(root: Marker): number {
+    const stack: Marker[] = [root];
+    
+    while (stack.length > 0) {
+      const current = stack.pop()!;
+      
+      // Check if current has this marker in its contents
+      const index = current.contents.indexOf(this);
+      if (index !== -1) {
+        return index;
+      }
+      
+      // Add children to stack (reversed to maintain order)
+      for (let i = current.contents.length - 1; i >= 0; i--) {
+        stack.push(current.contents[i]);
+      }
+    }
+    
+    return -1;
+  }
+
+  /**
+   * Get markers that come before this marker at the same level
+   * @param root The root marker to search from (typically USFMDocument)
+   * @return Marker[]
+   */
+  public getSiblingsBefore(root: Marker): Marker[] {
+    const index = this.findIndexInParent(root);
+    if (index <= 0) {
+      return [];
+    }
+    
+    // Find parent and get contents before this marker
+    const stack: Marker[] = [root];
+    
+    while (stack.length > 0) {
+      const current = stack.pop()!;
+      const idx = current.contents.indexOf(this);
+      
+      if (idx !== -1) {
+        return current.contents.slice(0, idx);
+      }
+      
+      for (let i = current.contents.length - 1; i >= 0; i--) {
+        stack.push(current.contents[i]);
+      }
+    }
+    
+    return [];
+  }
+
+  /**
+   * Get markers that come after this marker at the same level
+   * @param root The root marker to search from (typically USFMDocument)
+   * @return Marker[]
+   */
+  public getSiblingsAfter(root: Marker): Marker[] {
+    const stack: Marker[] = [root];
+    
+    while (stack.length > 0) {
+      const current = stack.pop()!;
+      const idx = current.contents.indexOf(this);
+      
+      if (idx !== -1) {
+        return current.contents.slice(idx + 1);
+      }
+      
+      for (let i = current.contents.length - 1; i >= 0; i--) {
+        stack.push(current.contents[i]);
+      }
+    }
+    
+    return [];
   }
 
   /**

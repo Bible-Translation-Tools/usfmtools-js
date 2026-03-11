@@ -6,9 +6,15 @@ class FRMarker extends marker_1.Marker {
     getIdentifier() {
         return "fr";
     }
+    getRawValue() {
+        return this.verseReference || "";
+    }
     preProcess(input) {
         this.verseReference = input.trim();
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.verseReference);
     }
 }
 exports.FRMarker = FRMarker;

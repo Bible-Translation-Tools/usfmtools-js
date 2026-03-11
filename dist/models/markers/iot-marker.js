@@ -6,6 +6,9 @@ class IOTMarker extends marker_1.Marker {
     getIdentifier() {
         return "iot";
     }
+    getRawValue() {
+        return this.title || "";
+    }
     preProcess(input) {
         this.title = input.trim();
         return "";

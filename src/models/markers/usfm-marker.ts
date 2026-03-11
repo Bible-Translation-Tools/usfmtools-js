@@ -18,4 +18,8 @@ export class USFMMarker extends Marker {
     this.version = input.trim();
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.version);
+  }
 }

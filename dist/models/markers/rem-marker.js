@@ -6,6 +6,9 @@ class REMMarker extends marker_1.Marker {
     getIdentifier() {
         return "rem";
     }
+    getRawValue() {
+        return this.comment || "";
+    }
     preProcess(input) {
         this.comment = input.trim();
         return "";

@@ -6,9 +6,15 @@ class IDMarker extends marker_1.Marker {
     getIdentifier() {
         return "id";
     }
+    getRawValue() {
+        return this.textIdentifier || "";
+    }
     preProcess(input) {
         this.textIdentifier = input.trim();
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.textIdentifier);
     }
 }
 exports.IDMarker = IDMarker;

@@ -6,6 +6,17 @@ class FIGMarker extends marker_1.Marker {
     getIdentifier() {
         return "fig";
     }
+    getRawValue() {
+        return [
+            this.description || "",
+            this.filePath || "",
+            this.width || "",
+            this.location || "",
+            this.copyright || "",
+            this.caption || "",
+            this.reference || "",
+        ].join("|");
+    }
     preProcess(input) {
         const trimmedInput = input.trim();
         const wordEntry = trimmedInput.split("|");
@@ -57,6 +68,9 @@ class FIGMarker extends marker_1.Marker {
             }
         }
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.filePath);
     }
 }
 exports.FIGMarker = FIGMarker;

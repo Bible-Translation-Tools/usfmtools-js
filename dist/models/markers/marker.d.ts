@@ -13,7 +13,31 @@ export declare abstract class Marker {
      * @return string
      */
     preProcess(input: string): string;
+    /**
+     * Returns whether this marker has valid required values after preProcess.
+     * Override in subclasses that require specific values (e.g., chapter number, verse number, caller).
+     * @return boolean
+     */
+    isValid(): boolean;
     tryInsert(input: Marker): boolean;
+    /**
+     * Find this marker's index within its parent's contents by searching from root
+     * @param root The root marker to search from
+     * @return number The index in parent's contents, or -1 if not found
+     */
+    private findIndexInParent;
+    /**
+     * Get markers that come before this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsBefore(root: Marker): Marker[];
+    /**
+     * Get markers that come after this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsAfter(root: Marker): Marker[];
     /**
      * @return string[]
      */
@@ -40,5 +64,16 @@ export declare abstract class Marker {
      * @return Marker
      */
     getLastDescendent(): Marker;
+    /**
+     * Returns the marker-specific data that appears after the identifier in raw USFM.
+     * Override in subclasses that store data (e.g., verse number, footnote caller).
+     * @return string
+     */
+    getRawValue(): string;
+    /**
+     * Returns the raw USFM string representation of this marker and all its children.
+     * @return string
+     */
+    getRawContents(): string;
     static isNullOrWhiteSpace(str: string | null | undefined): boolean;
 }

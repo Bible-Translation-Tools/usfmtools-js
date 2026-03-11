@@ -28,6 +28,9 @@ class SMarker extends marker_1.Marker {
     getIdentifier() {
         return "s";
     }
+    getRawValue() {
+        return this.text || "";
+    }
     preProcess(input) {
         this.text = input.trimStart();
         return "";

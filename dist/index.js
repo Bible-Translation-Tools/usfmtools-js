@@ -152,6 +152,7 @@ __exportStar(require("./models/markers/toca2-marker"), exports);
 __exportStar(require("./models/markers/toca3-marker"), exports);
 __exportStar(require("./models/markers/tr-marker"), exports);
 __exportStar(require("./models/markers/unknown-marker"), exports);
+__exportStar(require("./models/markers/invalid-marker"), exports);
 __exportStar(require("./models/markers/usfm-document"), exports);
 __exportStar(require("./models/markers/usfm-marker"), exports);
 __exportStar(require("./models/markers/v-marker"), exports);

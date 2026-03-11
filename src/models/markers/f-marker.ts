@@ -72,4 +72,8 @@ export class FMarker extends Marker {
       BDEndMarker,
     ];
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.footNoteCaller);
+  }
 }

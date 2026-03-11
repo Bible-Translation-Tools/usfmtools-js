@@ -6,9 +6,15 @@ class IDEMarker extends marker_1.Marker {
     getIdentifier() {
         return "ide";
     }
+    getRawValue() {
+        return this.encoding || "";
+    }
     preProcess(input) {
         this.encoding = input.trim();
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.encoding);
     }
 }
 exports.IDEMarker = IDEMarker;

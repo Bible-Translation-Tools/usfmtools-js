@@ -6,6 +6,9 @@ class VPMarker extends marker_1.Marker {
     getIdentifier() {
         return "vp";
     }
+    getRawValue() {
+        return this.verseCharacter || "";
+    }
     preProcess(input) {
         this.verseCharacter = input.trim();
         return "";

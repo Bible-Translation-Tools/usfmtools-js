@@ -11,6 +11,9 @@ class QAMarker extends marker_1.Marker {
     getIdentifier() {
         return "qa";
     }
+    getRawValue() {
+        return this.heading || "";
+    }
     preProcess(input) {
         this.heading = input.trim();
         return "";

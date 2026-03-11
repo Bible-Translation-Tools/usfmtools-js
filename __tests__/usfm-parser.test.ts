@@ -84,6 +84,11 @@ import { XQMarker } from "../src/models/markers/xq-marker";
 import { XTMarker } from "../src/models/markers/xt-marker";
 import { FEndMarker } from "../src/models/markers/f-end-marker";
 import { FTMarker } from "../src/models/markers/ft-marker";
+import { InvalidMarker } from "../src/models/markers/invalid-marker";
+import { UnknownMarker } from "../src/models/markers/unknown-marker";
+import { FIGMarker } from "../src/models/markers/fig-marker";
+import { FIGEndMarker } from "../src/models/markers/fig-end-marker";
+import { XEndMarker } from "../src/models/markers/x-end-marker";
 
 describe("USFMParserTest", () => {
   let parser: USFMParser;
@@ -1175,5 +1180,262 @@ describe("USFMParserTest", () => {
     expect(raw).toContain("\\p");
     expect(raw).toContain("\\v 1");
     expect(raw).toContain("In the beginning God created the heavens and the earth.");
+  });
+
+  // ============================================================
+  // isValid() / InvalidMarker tests
+  // ============================================================
+
+  test("TestInvalidMarker_CMarkerWithoutNumber", () => {
+    const doc = parser.parseFromString("\\id GEN \\c \\p \\v 1 Text");
+    // \c without number should become InvalidMarker
+    const markers = doc.getChildMarkers(InvalidMarker);
+    expect(markers.length).toBe(1);
+    expect(markers[0].parsedIdentifier).toBe("c");
+    // The following \p and \v should still be parsed normally
+    const pMarkers = doc.getChildMarkers(PMarker);
+    expect(pMarkers.length).toBe(1);
+    const vMarkers = doc.getChildMarkers(VMarker);
+    expect(vMarkers.length).toBe(1);
+    expect(vMarkers[0].verseNumber).toBe("1");
+  });
+
+  test("TestInvalidMarker_CMarkerWithNumberIsValid", () => {
+    const doc = parser.parseFromString("\\c 1 \\p \\v 1 Text");
+    const cMarkers = doc.getChildMarkers(CMarker);
+    expect(cMarkers.length).toBe(1);
+    expect(cMarkers[0].number).toBe(1);
+    // No invalid markers
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(0);
+  });
+
+  test("TestInvalidMarker_VMarkerWithoutNumber", () => {
+    const doc = parser.parseFromString("\\c 1 \\p \\v Text after");
+    // \v without number should become InvalidMarker
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("v");
+    // "Text after" should still appear as a TextBlock
+    const textBlocks = doc.getChildMarkers(TextBlock);
+    const hasText = textBlocks.some((tb) => tb.text.includes("Text after"));
+    expect(hasText).toBe(true);
+  });
+
+  test("TestInvalidMarker_VMarkerWithNumberIsValid", () => {
+    const doc = parser.parseFromString("\\c 1 \\p \\v 5 Some text");
+    const vMarkers = doc.getChildMarkers(VMarker);
+    expect(vMarkers.length).toBe(1);
+    expect(vMarkers[0].verseNumber).toBe("5");
+    expect(vMarkers[0].startingVerse).toBe(5);
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(0);
+  });
+
+  test("TestInvalidMarker_FMarkerWithoutCaller", () => {
+    const doc = parser.parseFromString("\\v 1 Text \\f \\f*");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("f");
+  });
+
+  test("TestInvalidMarker_FMarkerWithCallerIsValid", () => {
+    const doc = parser.parseFromString("\\v 1 Text \\f + \\ft note \\f*");
+    const fMarkers = doc.getChildMarkers(FMarker);
+    expect(fMarkers.length).toBe(1);
+    expect(fMarkers[0].footNoteCaller).toBe("+");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(0);
+  });
+
+  test("TestInvalidMarker_XMarkerWithoutCaller", () => {
+    const doc = parser.parseFromString("\\v 1 Text \\x \\x*");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("x");
+  });
+
+  test("TestInvalidMarker_XMarkerWithCallerIsValid", () => {
+    const doc = parser.parseFromString("\\v 1 Text \\x + \\xo 1.1 \\xt Ref \\x*");
+    const xMarkers = doc.getChildMarkers(XMarker);
+    expect(xMarkers.length).toBe(1);
+    expect(xMarkers[0].crossRefCaller).toBe("+");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(0);
+  });
+
+  test("TestInvalidMarker_IDMarkerWithoutCode", () => {
+    const doc = parser.parseFromString("\\id \\c 1");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("id");
+    // \c should still parse
+    const cMarkers = doc.getChildMarkers(CMarker);
+    expect(cMarkers.length).toBe(1);
+    expect(cMarkers[0].number).toBe(1);
+  });
+
+  test("TestInvalidMarker_IDEMarkerWithoutEncoding", () => {
+    const doc = parser.parseFromString("\\ide \\id GEN");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("ide");
+    // \id should still parse
+    const idMarkers = doc.getChildMarkers(IDMarker);
+    expect(idMarkers.length).toBe(1);
+    expect(idMarkers[0].textIdentifier).toBe("GEN");
+  });
+
+  test("TestInvalidMarker_USFMMarkerWithoutVersion", () => {
+    const doc = parser.parseFromString("\\usfm \\id GEN");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("usfm");
+  });
+
+  test("TestInvalidMarker_STSMarkerWithoutStatus", () => {
+    const doc = parser.parseFromString("\\sts \\id GEN");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("sts");
+  });
+
+  test("TestInvalidMarker_FRMarkerWithoutReference", () => {
+    const doc = parser.parseFromString("\\f + \\fr \\ft text \\f*");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("fr");
+  });
+
+  test("TestInvalidMarker_XOMarkerWithoutReference", () => {
+    const doc = parser.parseFromString("\\x + \\xo \\xt Ref \\x*");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("xo");
+  });
+
+  test("TestInvalidMarker_IgnoreInvalidMarkersMode", () => {
+    parser = new USFMParser(null, false, true);
+    const doc = parser.parseFromString("\\id \\c 1 \\p \\v 1 Text");
+    // \id without code should be dropped in ignore mode
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(0);
+    // Rest should parse normally
+    const cMarkers = doc.getChildMarkers(CMarker);
+    expect(cMarkers.length).toBe(1);
+    expect(cMarkers[0].number).toBe(1);
+  });
+
+  test("TestInvalidMarker_RemainingTextPreserved", () => {
+    // When \c has no number but has trailing text, the text should be preserved
+    const doc = parser.parseFromString("\\id GEN \\c \\v 1 In the beginning");
+    const vMarkers = doc.getChildMarkers(VMarker);
+    expect(vMarkers.length).toBe(1);
+    expect(vMarkers[0].verseNumber).toBe("1");
+    const textBlocks = doc.getChildMarkers(TextBlock);
+    const hasText = textBlocks.some((tb) => tb.text.includes("In the beginning"));
+    expect(hasText).toBe(true);
+  });
+
+  test("TestInvalidMarker_MultipleInvalidMarkers", () => {
+    const doc = parser.parseFromString("\\id \\c \\v \\p");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    // \id, \c, and \v should all be invalid
+    expect(invalidMarkers.length).toBe(3);
+    const identifiers = invalidMarkers.map((m) => m.parsedIdentifier).sort();
+    expect(identifiers).toEqual(["c", "id", "v"]);
+    // \p should still be valid (doesn't require a value)
+    const pMarkers = doc.getChildMarkers(PMarker);
+    expect(pMarkers.length).toBe(1);
+  });
+
+  test("TestInvalidMarker_InvalidMarkerHasLineNumber", () => {
+    const doc = parser.parseFromString("\\id GEN\n\\c\n\\v 1 Text");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("c");
+    expect(invalidMarkers[0].line).toBeGreaterThan(0);
+  });
+
+  test("TestInvalidMarker_ValidVerseBridge", () => {
+    const doc = parser.parseFromString("\\c 1 \\p \\v 1-3 Verse bridge text");
+    const vMarkers = doc.getChildMarkers(VMarker);
+    expect(vMarkers.length).toBe(1);
+    expect(vMarkers[0].verseNumber).toBe("1-3");
+    expect(vMarkers[0].startingVerse).toBe(1);
+    expect(vMarkers[0].endingVerse).toBe(3);
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(0);
+  });
+
+  test("TestIsValid_MarkerInstances", () => {
+    // CMarker
+    const cm = new CMarker();
+    cm.preProcess("5");
+    expect(cm.isValid()).toBe(true);
+    expect(cm.number).toBe(5);
+
+    const cmInvalid = new CMarker();
+    cmInvalid.preProcess("");
+    expect(cmInvalid.isValid()).toBe(false);
+
+    // VMarker
+    const vm = new VMarker();
+    vm.preProcess("3 text");
+    expect(vm.isValid()).toBe(true);
+
+    const vmInvalid = new VMarker();
+    vmInvalid.preProcess(" ");
+    expect(vmInvalid.isValid()).toBe(false);
+
+    // FMarker
+    const fm = new FMarker();
+    fm.preProcess("+");
+    expect(fm.isValid()).toBe(true);
+
+    const fmInvalid = new FMarker();
+    fmInvalid.preProcess("");
+    expect(fmInvalid.isValid()).toBe(false);
+
+    // XMarker
+    const xm = new XMarker();
+    xm.preProcess("+");
+    expect(xm.isValid()).toBe(true);
+
+    const xmInvalid = new XMarker();
+    xmInvalid.preProcess("");
+    expect(xmInvalid.isValid()).toBe(false);
+
+    // IDMarker
+    const idm = new IDMarker();
+    idm.preProcess("GEN");
+    expect(idm.isValid()).toBe(true);
+
+    const idmInvalid = new IDMarker();
+    idmInvalid.preProcess("");
+    expect(idmInvalid.isValid()).toBe(false);
+
+    // WMarker
+    const wm = new WMarker();
+    wm.preProcess("gracious|lemma");
+    expect(wm.isValid()).toBe(true);
+
+    const wmInvalid = new WMarker();
+    wmInvalid.preProcess("");
+    expect(wmInvalid.isValid()).toBe(false);
+  });
+
+  test("TestInvalidMarker_CAMarkerWithoutValue", () => {
+    const doc = parser.parseFromString("\\c 1 \\ca \\ca*");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("ca");
+  });
+
+  test("TestInvalidMarker_VAMarkerWithoutValue", () => {
+    const doc = parser.parseFromString("\\c 1 \\p \\v 1 text \\va \\va*");
+    const invalidMarkers = doc.getChildMarkers(InvalidMarker);
+    expect(invalidMarkers.length).toBe(1);
+    expect(invalidMarkers[0].parsedIdentifier).toBe("va");
   });
 });

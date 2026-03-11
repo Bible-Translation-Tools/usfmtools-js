@@ -10,6 +10,9 @@ class IMTMarker extends marker_1.Marker {
     getIdentifier() {
         return "imt";
     }
+    getRawValue() {
+        return this.introTitle || "";
+    }
     preProcess(input) {
         this.introTitle = input.trim();
         return "";

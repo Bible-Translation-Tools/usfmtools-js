@@ -83,4 +83,8 @@ export class FIGMarker extends Marker {
 
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.filePath);
+  }
 }

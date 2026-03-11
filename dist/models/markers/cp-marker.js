@@ -6,6 +6,9 @@ class CPMarker extends marker_1.Marker {
     getIdentifier() {
         return "cp";
     }
+    getRawValue() {
+        return this.publishedChapterMarker || "";
+    }
     preProcess(input) {
         this.publishedChapterMarker = input.trim();
         return "";

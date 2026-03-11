@@ -6,6 +6,9 @@ class TOC3Marker extends marker_1.Marker {
     getIdentifier() {
         return "toc3";
     }
+    getRawValue() {
+        return this.bookAbbreviation || "";
+    }
     preProcess(input) {
         this.bookAbbreviation = input.trim();
         return "";

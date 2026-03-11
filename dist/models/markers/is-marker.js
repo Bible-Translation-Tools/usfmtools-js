@@ -10,6 +10,9 @@ class ISMarker extends marker_1.Marker {
     getIdentifier() {
         return "is";
     }
+    getRawValue() {
+        return this.heading || "";
+    }
     preProcess(input) {
         this.heading = input.trim();
         return "";

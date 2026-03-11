@@ -6,9 +6,15 @@ class FVMarker extends marker_1.Marker {
     getIdentifier() {
         return "fv";
     }
+    getRawValue() {
+        return this.verseCharacter || "";
+    }
     preProcess(input) {
         this.verseCharacter = input.trim();
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.verseCharacter);
     }
 }
 exports.FVMarker = FVMarker;

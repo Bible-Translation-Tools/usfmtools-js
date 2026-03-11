@@ -6,6 +6,9 @@ class CLMarker extends marker_1.Marker {
     getIdentifier() {
         return "cl";
     }
+    getRawValue() {
+        return this.label || "";
+    }
     preProcess(input) {
         this.label = input.trim();
         return "";

@@ -8,5 +8,7 @@ export declare class FIGMarker extends Marker {
     reference: string;
     filePath: string;
     getIdentifier(): string;
+    getRawValue(): string;
     preProcess(input: string): string;
+    isValid(): boolean;
 }

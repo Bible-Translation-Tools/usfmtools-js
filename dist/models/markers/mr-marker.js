@@ -15,6 +15,9 @@ class MRMarker extends marker_1.Marker {
     getIdentifier() {
         return "mr";
     }
+    getRawValue() {
+        return this.sectionReference || "";
+    }
     preProcess(input) {
         this.sectionReference = input.trimStart();
         return "";

@@ -6,6 +6,9 @@ class BKMarker extends marker_1.Marker {
     getIdentifier() {
         return "bk";
     }
+    getRawValue() {
+        return this.bookTitle || "";
+    }
     preProcess(input) {
         this.bookTitle = input.trim();
         return "";

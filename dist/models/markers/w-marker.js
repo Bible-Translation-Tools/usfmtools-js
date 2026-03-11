@@ -17,6 +17,17 @@ class WMarker extends marker_1.Marker {
     getIdentifier() {
         return "w";
     }
+    getRawValue() {
+        let result = this.term || "";
+        const attrEntries = Object.entries(this.attributes);
+        if (attrEntries.length > 0) {
+            const attrStr = attrEntries
+                .map(([key, value]) => `${key}="${value}"`)
+                .join(" ");
+            result += "|" + attrStr;
+        }
+        return result;
+    }
     preProcess(input) {
         const trimmedInput = input.trim();
         const wordEntry = trimmedInput.split("|");
@@ -39,6 +50,9 @@ class WMarker extends marker_1.Marker {
     }
     getAllowedContents() {
         return [text_block_1.TextBlock];
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.term);
     }
 }
 exports.WMarker = WMarker;

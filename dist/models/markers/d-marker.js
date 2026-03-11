@@ -11,6 +11,9 @@ class DMarker extends marker_1.Marker {
     getIdentifier() {
         return "d";
     }
+    getRawValue() {
+        return this.description || "";
+    }
     preProcess(input) {
         this.description = input.trim();
         return "";

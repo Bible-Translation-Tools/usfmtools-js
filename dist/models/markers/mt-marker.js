@@ -10,6 +10,9 @@ class MTMarker extends marker_1.Marker {
     getIdentifier() {
         return "mt";
     }
+    getRawValue() {
+        return this.title || "";
+    }
     preProcess(input) {
         this.title = input.trim();
         return "";

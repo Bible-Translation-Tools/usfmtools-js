@@ -10,12 +10,18 @@ class XMarker extends marker_1.Marker {
     getIdentifier() {
         return "x";
     }
+    getRawValue() {
+        return this.crossRefCaller || "";
+    }
     preProcess(input) {
         this.crossRefCaller = input.trim();
         return "";
     }
     getAllowedContents() {
         return [xo_marker_1.XOMarker, xt_marker_1.XTMarker, xq_marker_1.XQMarker, text_block_1.TextBlock];
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.crossRefCaller);
     }
 }
 exports.XMarker = XMarker;

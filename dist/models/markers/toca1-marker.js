@@ -6,6 +6,9 @@ class TOCA1Marker extends marker_1.Marker {
     getIdentifier() {
         return "toca1";
     }
+    getRawValue() {
+        return this.altLongTableOfContentsText || "";
+    }
     preProcess(input) {
         this.altLongTableOfContentsText = input.trim();
         return "";

@@ -11,6 +11,9 @@ class MSMarker extends marker_1.Marker {
     getIdentifier() {
         return "ms";
     }
+    getRawValue() {
+        return this.heading || "";
+    }
     preProcess(input) {
         this.heading = input.trimStart();
         return "";

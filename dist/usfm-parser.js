@@ -137,6 +137,7 @@ const toca2_marker_1 = require("./models/markers/toca2-marker");
 const toca3_marker_1 = require("./models/markers/toca3-marker");
 const tr_marker_1 = require("./models/markers/tr-marker");
 const unknown_marker_1 = require("./models/markers/unknown-marker");
+const invalid_marker_1 = require("./models/markers/invalid-marker");
 const usfm_document_1 = require("./models/markers/usfm-document");
 const usfm_marker_1 = require("./models/markers/usfm-marker");
 const v_marker_1 = require("./models/markers/v-marker");
@@ -161,19 +162,22 @@ const xq_marker_1 = require("./models/markers/xq-marker");
 const xt_marker_1 = require("./models/markers/xt-marker");
 class USFMParser {
     /**
-     * @param ?string[] $tagsToIgnore
-     * @param bool $ignoreUnknownMarkers
+     * @param tagsToIgnore
+     * @param ignoreUnknownMarkers
+     * @param ignoreInvalidMarkers
      */
-    constructor(tagsToIgnore = null, ignoreUnknownMarkers = false) {
+    constructor(tagsToIgnore = null, ignoreUnknownMarkers = false, ignoreInvalidMarkers = false) {
         /** @var array|string[] */
         this.ignoredTags = [];
         this.ignoreUnknownMarkers = false;
+        this.ignoreInvalidMarkers = false;
         this.ignoredTags = tagsToIgnore ?? [];
         this.ignoreUnknownMarkers = ignoreUnknownMarkers;
+        this.ignoreInvalidMarkers = ignoreInvalidMarkers;
     }
     /**
      * Parses a string into a USFMDocument
-     * @param string $input A USFM string
+     * @param input A USFM string
      * @return USFMDocument A USFMDocument representing the input
      */
     parseFromString(input) {
@@ -201,7 +205,7 @@ class USFMParser {
     }
     /**
      * Removes all the unnecessary whitespace while preserving space between closing markers and opening markers
-     * @param (Marker|USFMDocument)[] $input
+     * @param input
      * @return (Marker|USFMDocument)[]
      */
     cleanWhitespace(input) {
@@ -234,7 +238,7 @@ class USFMParser {
     }
     /**
      * Generate a list of Markers from a string
-     * @param string $input USFM String to tokenize
+     * @param input USFM String to tokenize
      * @return (Marker|USFMDocument)[] A List of Markers based upon the string
      */
     tokenizeFromString(input) {
@@ -260,6 +264,13 @@ class USFMParser {
                     output.push(resultMarker);
                 }
             }
+            else if (resultMarker instanceof invalid_marker_1.InvalidMarker) {
+                if (!this.ignoreInvalidMarkers) {
+                    // Set line number for invalid markers
+                    resultMarker.line = this.calculateLineNumber(match.index, match.input);
+                    output.push(resultMarker);
+                }
+            }
             else {
                 output.push(resultMarker);
             }
@@ -270,17 +281,36 @@ class USFMParser {
         return output;
     }
     /**
-     * @param string $identifier
-     * @param string $value
+     * @param identifier
+     * @param value
      * @return ConvertToMarkerResult
      */
     convertToMarker(identifier, value) {
         const output = this.selectMarker(identifier);
         const remainingText = output.preProcess(value);
+        // Check if marker has valid required values
+        if (!output.isValid()) {
+            const invalid = new invalid_marker_1.InvalidMarker();
+            invalid.parsedIdentifier = output.getIdentifier();
+            return { marker: invalid, remainingText: value.trim() };
+        }
         return { marker: output, remainingText };
     }
     /**
-     * @param string $identifier
+     * Calculate the line number (1-based) from a position in the input string
+     * @param position
+     * @param input
+     * @return number
+     */
+    calculateLineNumber(position, input) {
+        if (position === undefined || input === undefined) {
+            return 1;
+        }
+        const substring = input.substring(0, position);
+        return substring.split("\n").length;
+    }
+    /**
+     * @param identifier
      * @return Marker
      */
     selectMarker(identifier) {

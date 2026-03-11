@@ -32,6 +32,9 @@ class FMarker extends marker_1.Marker {
     getIdentifier() {
         return "f";
     }
+    getRawValue() {
+        return this.footNoteCaller || "";
+    }
     preProcess(input) {
         this.footNoteCaller = input.trim();
         return "";
@@ -65,6 +68,9 @@ class FMarker extends marker_1.Marker {
             bd_marker_1.BDMarker,
             bd_end_marker_1.BDEndMarker,
         ];
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.footNoteCaller);
     }
 }
 exports.FMarker = FMarker;

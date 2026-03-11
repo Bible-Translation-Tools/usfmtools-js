@@ -6,9 +6,15 @@ class USFMMarker extends marker_1.Marker {
     getIdentifier() {
         return "usfm";
     }
+    getRawValue() {
+        return this.version || "";
+    }
     preProcess(input) {
         this.version = input.trim();
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.version);
     }
 }
 exports.USFMMarker = USFMMarker;

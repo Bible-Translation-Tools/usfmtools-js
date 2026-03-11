@@ -100,6 +100,9 @@ class VMarker extends marker_1.Marker {
     getIdentifier() {
         return "v";
     }
+    getRawValue() {
+        return this.verseNumber || "";
+    }
     preProcess(input) {
         const matches = input.match(VMarker.verseRegex);
         if (matches) {
@@ -116,6 +119,9 @@ class VMarker extends marker_1.Marker {
             return matches[2] || "";
         }
         return "";
+    }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.verseNumber);
     }
     getVerseCharacter() {
         const firstCharacterMarker = this.getChildMarkers(vp_marker_1.VPMarker);
@@ -238,4 +244,4 @@ class VMarker extends marker_1.Marker {
     }
 }
 exports.VMarker = VMarker;
-VMarker.verseRegex = /^ *([0-9]*-?[0-9]*) ?(.*)/;
+VMarker.verseRegex = /^ *([0-9]*-?[0-9]*) ?([\s\S]*)/;

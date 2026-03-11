@@ -7,6 +7,9 @@ class CDMarker extends marker_1.Marker {
     getIdentifier() {
         return "cd";
     }
+    getRawValue() {
+        return this.description || "";
+    }
     preProcess(input) {
         this.description = input;
         return "";

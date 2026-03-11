@@ -6,6 +6,9 @@ class QACMarker extends marker_1.Marker {
     getIdentifier() {
         return "qac";
     }
+    getRawValue() {
+        return this.acrosticLetter || "";
+    }
     preProcess(input) {
         this.acrosticLetter = input.trim();
         return "";

@@ -1,8 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UnknownMarker = void 0;
+exports.InvalidMarker = void 0;
 const marker_1 = require("./marker");
-class UnknownMarker extends marker_1.Marker {
+class InvalidMarker extends marker_1.Marker {
+    constructor() {
+        super();
+        this.line = 0;
+    }
     getIdentifier() {
         return "";
     }
@@ -14,4 +18,4 @@ class UnknownMarker extends marker_1.Marker {
         return "";
     }
 }
-exports.UnknownMarker = UnknownMarker;
+exports.InvalidMarker = InvalidMarker;
