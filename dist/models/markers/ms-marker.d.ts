@@ -1,0 +1,9 @@
+import { Marker } from "./marker";
+export declare class MSMarker extends Marker {
+    weight: number;
+    heading: string;
+    getIdentifier(): string;
+    getRawValue(): string;
+    preProcess(input: string): string;
+    getAllowedContents(): (new (...args: any[]) => Marker)[];
+}
