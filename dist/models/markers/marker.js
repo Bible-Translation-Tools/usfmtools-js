@@ -43,6 +43,70 @@ class Marker {
         return false;
     }
     /**
+     * Find this marker's index within its parent's contents by searching from root
+     * @param root The root marker to search from
+     * @return number The index in parent's contents, or -1 if not found
+     */
+    findIndexInParent(root) {
+        const stack = [root];
+        while (stack.length > 0) {
+            const current = stack.pop();
+            // Check if current has this marker in its contents
+            const index = current.contents.indexOf(this);
+            if (index !== -1) {
+                return index;
+            }
+            // Add children to stack (reversed to maintain order)
+            for (let i = current.contents.length - 1; i >= 0; i--) {
+                stack.push(current.contents[i]);
+            }
+        }
+        return -1;
+    }
+    /**
+     * Get markers that come before this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsBefore(root) {
+        const index = this.findIndexInParent(root);
+        if (index <= 0) {
+            return [];
+        }
+        // Find parent and get contents before this marker
+        const stack = [root];
+        while (stack.length > 0) {
+            const current = stack.pop();
+            const idx = current.contents.indexOf(this);
+            if (idx !== -1) {
+                return current.contents.slice(0, idx);
+            }
+            for (let i = current.contents.length - 1; i >= 0; i--) {
+                stack.push(current.contents[i]);
+            }
+        }
+        return [];
+    }
+    /**
+     * Get markers that come after this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsAfter(root) {
+        const stack = [root];
+        while (stack.length > 0) {
+            const current = stack.pop();
+            const idx = current.contents.indexOf(this);
+            if (idx !== -1) {
+                return current.contents.slice(idx + 1);
+            }
+            for (let i = current.contents.length - 1; i >= 0; i--) {
+                stack.push(current.contents[i]);
+            }
+        }
+        return [];
+    }
+    /**
      * @return string[]
      */
     getTypesPathToLastMarker() {

@@ -21,6 +21,24 @@ export declare abstract class Marker {
     isValid(): boolean;
     tryInsert(input: Marker): boolean;
     /**
+     * Find this marker's index within its parent's contents by searching from root
+     * @param root The root marker to search from
+     * @return number The index in parent's contents, or -1 if not found
+     */
+    private findIndexInParent;
+    /**
+     * Get markers that come before this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsBefore(root: Marker): Marker[];
+    /**
+     * Get markers that come after this marker at the same level
+     * @param root The root marker to search from (typically USFMDocument)
+     * @return Marker[]
+     */
+    getSiblingsAfter(root: Marker): Marker[];
+    /**
      * @return string[]
      */
     getTypesPathToLastMarker(): (new (...args: any[]) => Marker)[];
