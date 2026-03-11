@@ -15,4 +15,8 @@ export class IDMarker extends Marker {
     this.textIdentifier = input.trim();
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.textIdentifier);
+  }
 }

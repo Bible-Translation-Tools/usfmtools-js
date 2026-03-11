@@ -244,4 +244,4 @@ class VMarker extends marker_1.Marker {
     }
 }
 exports.VMarker = VMarker;
-VMarker.verseRegex = /^ *([0-9]*-?[0-9]*) ?(.*)/;
+VMarker.verseRegex = /^ *([0-9]*-?[0-9]*) ?([\s\S]*)/;

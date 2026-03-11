@@ -15,4 +15,8 @@ export class STSMarker extends Marker {
     this.statusText = input.trim();
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.statusText);
+  }
 }

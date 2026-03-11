@@ -4,4 +4,5 @@ export declare class FVMarker extends Marker {
     getIdentifier(): string;
     getRawValue(): string;
     preProcess(input: string): string;
+    isValid(): boolean;
 }

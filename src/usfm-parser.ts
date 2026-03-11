@@ -272,7 +272,7 @@ export class USFMParser {
         continue;
       }
 
-      const result = this.convertToMarker(match[1], match[2]);
+      const result = this.convertToMarker(match[1], match[2], match.index);
       const resultMarker = result.marker;
       if (resultMarker instanceof Marker) {
         resultMarker.position = matches.indexOf(match);
@@ -281,6 +281,8 @@ export class USFMParser {
       // If this is an unknown marker, and we're in Ignore Unknown Marker mode then don't add the marker.
       // We still keep any remaining text though
       if (resultMarker instanceof UnknownMarker) {
+        resultMarker.line = this.calculateLineNumber(match.index, match.input);
+
         if (this.ignoreUnknownMarkers) {
           output.push(new TextBlock(resultMarker.parsedValue));
         } else {
@@ -301,23 +303,43 @@ export class USFMParser {
   /**
    * @param string $identifier
    * @param string $value
+   * @param number $matchIndex
    * @return ConvertToMarkerResult
    */
   private convertToMarker(
     identifier: string,
-    value: string
+    value: string,
+    matchIndex: number | undefined
   ): ConvertToMarkerResult {
     const output = this.selectMarker(identifier);
     const remainingText = output.preProcess(value);
 
-    // If \c marker has no chapter number, treat it as unknown
-    if (output instanceof CMarker && !/\d/.test(value)) {
+    // Check if marker has valid required values
+    if (!output.isValid()) {
       const unknown = new UnknownMarker();
-      unknown.parsedIdentifier = "c";
+      unknown.parsedIdentifier = output.getIdentifier();
+      unknown.line = this.calculateLineNumber(matchIndex, "");
       return { marker: unknown, remainingText: value.trim() };
     }
 
     return { marker: output, remainingText };
+  }
+
+  /**
+   * Calculate the line number (1-based) from a position in the input string
+   * @param position
+   * @param input
+   * @return number
+   */
+  private calculateLineNumber(
+    position: number | undefined,
+    input: string | undefined
+  ): number {
+    if (position === undefined || input === undefined) {
+      return 1;
+    }
+    const substring = input.substring(0, position);
+    return substring.split("\n").length;
   }
 
   /**

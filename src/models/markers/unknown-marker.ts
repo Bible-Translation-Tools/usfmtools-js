@@ -3,6 +3,12 @@ import { Marker } from "./marker";
 export class UnknownMarker extends Marker {
   public parsedIdentifier: string;
   public parsedValue: string;
+  public line: number;
+
+  public constructor() {
+    super();
+    this.line = 0;
+  }
 
   public getIdentifier(): string {
     return "";

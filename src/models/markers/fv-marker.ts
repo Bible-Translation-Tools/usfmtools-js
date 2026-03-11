@@ -15,4 +15,8 @@ export class FVMarker extends Marker {
     this.verseCharacter = input.trim();
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.verseCharacter);
+  }
 }

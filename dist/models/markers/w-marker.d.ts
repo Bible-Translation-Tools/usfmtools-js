@@ -15,4 +15,5 @@ export declare class WMarker extends Marker {
     getRawValue(): string;
     preProcess(input: string): string;
     getAllowedContents(): (new (...args: any[]) => Marker)[];
+    isValid(): boolean;
 }

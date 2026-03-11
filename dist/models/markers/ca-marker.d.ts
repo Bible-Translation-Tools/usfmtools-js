@@ -7,4 +7,5 @@ export declare class CAMarker extends Marker {
     getIdentifier(): string;
     getRawValue(): string;
     preProcess(input: string): string;
+    isValid(): boolean;
 }

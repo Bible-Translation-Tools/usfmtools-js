@@ -18,4 +18,8 @@ export class CAMarker extends Marker {
     this.altChapterNumber = input.trim();
     return "";
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.altChapterNumber);
+  }
 }

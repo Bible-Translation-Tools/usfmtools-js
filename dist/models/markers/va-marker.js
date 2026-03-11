@@ -13,5 +13,8 @@ class VAMarker extends marker_1.Marker {
         this.altVerseNumber = input.trim();
         return "";
     }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.altVerseNumber);
+    }
 }
 exports.VAMarker = VAMarker;

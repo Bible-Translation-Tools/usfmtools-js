@@ -30,9 +30,17 @@ export declare class USFMParser {
     /**
      * @param string $identifier
      * @param string $value
+     * @param number $matchIndex
      * @return ConvertToMarkerResult
      */
     private convertToMarker;
+    /**
+     * Calculate the line number (1-based) from a position in the input string
+     * @param position
+     * @param input
+     * @return number
+     */
+    private calculateLineNumber;
     /**
      * @param string $identifier
      * @return Marker

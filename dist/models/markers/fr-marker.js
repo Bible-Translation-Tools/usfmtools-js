@@ -13,5 +13,8 @@ class FRMarker extends marker_1.Marker {
         this.verseReference = input.trim();
         return "";
     }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.verseReference);
+    }
 }
 exports.FRMarker = FRMarker;

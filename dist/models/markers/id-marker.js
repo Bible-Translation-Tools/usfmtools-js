@@ -13,5 +13,8 @@ class IDMarker extends marker_1.Marker {
         this.textIdentifier = input.trim();
         return "";
     }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.textIdentifier);
+    }
 }
 exports.IDMarker = IDMarker;

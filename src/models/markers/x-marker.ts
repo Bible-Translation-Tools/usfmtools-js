@@ -23,4 +23,8 @@ export class XMarker extends Marker {
   public getAllowedContents(): (new (...args: any[]) => Marker)[] {
     return [XOMarker, XTMarker, XQMarker, TextBlock];
   }
+
+  public isValid(): boolean {
+    return !Marker.isNullOrWhiteSpace(this.crossRefCaller);
+  }
 }

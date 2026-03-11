@@ -69,5 +69,8 @@ class FIGMarker extends marker_1.Marker {
         }
         return "";
     }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.filePath);
+    }
 }
 exports.FIGMarker = FIGMarker;

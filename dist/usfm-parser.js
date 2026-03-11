@@ -245,7 +245,7 @@ class USFMParser {
             if (this.ignoredTags.includes(match[1])) {
                 continue;
             }
-            const result = this.convertToMarker(match[1], match[2]);
+            const result = this.convertToMarker(match[1], match[2], match.index);
             const resultMarker = result.marker;
             if (resultMarker instanceof marker_1.Marker) {
                 resultMarker.position = matches.indexOf(match);
@@ -253,6 +253,7 @@ class USFMParser {
             // If this is an unknown marker, and we're in Ignore Unknown Marker mode then don't add the marker.
             // We still keep any remaining text though
             if (resultMarker instanceof unknown_marker_1.UnknownMarker) {
+                resultMarker.line = this.calculateLineNumber(match.index, match.input);
                 if (this.ignoreUnknownMarkers) {
                     output.push(new text_block_1.TextBlock(resultMarker.parsedValue));
                 }
@@ -272,18 +273,33 @@ class USFMParser {
     /**
      * @param string $identifier
      * @param string $value
+     * @param number $matchIndex
      * @return ConvertToMarkerResult
      */
-    convertToMarker(identifier, value) {
+    convertToMarker(identifier, value, matchIndex) {
         const output = this.selectMarker(identifier);
         const remainingText = output.preProcess(value);
-        // If \c marker has no chapter number, treat it as unknown
-        if (output instanceof c_marker_1.CMarker && !/\d/.test(value)) {
+        // Check if marker has valid required values
+        if (!output.isValid()) {
             const unknown = new unknown_marker_1.UnknownMarker();
-            unknown.parsedIdentifier = "c";
+            unknown.parsedIdentifier = output.getIdentifier();
+            unknown.line = this.calculateLineNumber(matchIndex, "");
             return { marker: unknown, remainingText: value.trim() };
         }
         return { marker: output, remainingText };
+    }
+    /**
+     * Calculate the line number (1-based) from a position in the input string
+     * @param position
+     * @param input
+     * @return number
+     */
+    calculateLineNumber(position, input) {
+        if (position === undefined || input === undefined) {
+            return 1;
+        }
+        const substring = input.substring(0, position);
+        return substring.split("\n").length;
     }
     /**
      * @param string $identifier

@@ -17,5 +17,8 @@ class XOMarker extends marker_1.Marker {
     getAllowedContents() {
         return [text_block_1.TextBlock];
     }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.originRef);
+    }
 }
 exports.XOMarker = XOMarker;

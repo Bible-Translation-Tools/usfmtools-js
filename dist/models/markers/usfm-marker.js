@@ -13,5 +13,8 @@ class USFMMarker extends marker_1.Marker {
         this.version = input.trim();
         return "";
     }
+    isValid() {
+        return !marker_1.Marker.isNullOrWhiteSpace(this.version);
+    }
 }
 exports.USFMMarker = USFMMarker;
