@@ -11,6 +11,10 @@ export class XMarker extends Marker {
     return "x";
   }
 
+  public getRawValue(): string {
+    return this.crossRefCaller || "";
+  }
+
   public preProcess(input: string): string {
     this.crossRefCaller = input.trim();
     return "";

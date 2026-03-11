@@ -7,6 +7,10 @@ export class CPMarker extends Marker {
     return "cp";
   }
 
+  public getRawValue(): string {
+    return this.publishedChapterMarker || "";
+  }
+
   public preProcess(input: string): string {
     this.publishedChapterMarker = input.trim();
     return "";

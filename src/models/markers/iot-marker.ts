@@ -7,6 +7,10 @@ export class IOTMarker extends Marker {
     return "iot";
   }
 
+  public getRawValue(): string {
+    return this.title || "";
+  }
+
   public preProcess(input: string): string {
     this.title = input.trim();
     return "";

@@ -7,6 +7,10 @@ export class QACMarker extends Marker {
     return "qac";
   }
 
+  public getRawValue(): string {
+    return this.acrosticLetter || "";
+  }
+
   public preProcess(input: string): string {
     this.acrosticLetter = input.trim();
     return "";

@@ -7,6 +7,10 @@ export class IDEMarker extends Marker {
     return "ide";
   }
 
+  public getRawValue(): string {
+    return this.encoding || "";
+  }
+
   public preProcess(input: string): string {
     this.encoding = input.trim();
     return "";

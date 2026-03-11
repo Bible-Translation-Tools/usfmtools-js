@@ -7,6 +7,10 @@ export class IDMarker extends Marker {
     return "id";
   }
 
+  public getRawValue(): string {
+    return this.textIdentifier || "";
+  }
+
   public preProcess(input: string): string {
     this.textIdentifier = input.trim();
     return "";

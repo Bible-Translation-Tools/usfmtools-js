@@ -7,6 +7,10 @@ export class FRMarker extends Marker {
     return "fr";
   }
 
+  public getRawValue(): string {
+    return this.verseReference || "";
+  }
+
   public preProcess(input: string): string {
     this.verseReference = input.trim();
     return "";

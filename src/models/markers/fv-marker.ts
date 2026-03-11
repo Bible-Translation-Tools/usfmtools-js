@@ -7,6 +7,10 @@ export class FVMarker extends Marker {
     return "fv";
   }
 
+  public getRawValue(): string {
+    return this.verseCharacter || "";
+  }
+
   public preProcess(input: string): string {
     this.verseCharacter = input.trim();
     return "";

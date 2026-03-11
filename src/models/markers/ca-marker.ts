@@ -10,6 +10,10 @@ export class CAMarker extends Marker {
     return "ca";
   }
 
+  public getRawValue(): string {
+    return this.altChapterNumber || "";
+  }
+
   public preProcess(input: string): string {
     this.altChapterNumber = input.trim();
     return "";

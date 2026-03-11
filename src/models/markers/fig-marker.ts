@@ -13,6 +13,18 @@ export class FIGMarker extends Marker {
     return "fig";
   }
 
+  public getRawValue(): string {
+    return [
+      this.description || "",
+      this.filePath || "",
+      this.width || "",
+      this.location || "",
+      this.copyright || "",
+      this.caption || "",
+      this.reference || "",
+    ].join("|");
+  }
+
   public preProcess(input: string): string {
     const trimmedInput = input.trim();
     const wordEntry = trimmedInput.split("|");

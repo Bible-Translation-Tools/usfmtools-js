@@ -7,6 +7,10 @@ export class STSMarker extends Marker {
     return "sts";
   }
 
+  public getRawValue(): string {
+    return this.statusText || "";
+  }
+
   public preProcess(input: string): string {
     this.statusText = input.trim();
     return "";

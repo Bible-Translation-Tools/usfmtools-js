@@ -12,6 +12,10 @@ export class DMarker extends Marker {
     return "d";
   }
 
+  public getRawValue(): string {
+    return this.description || "";
+  }
+
   public preProcess(input: string): string {
     this.description = input.trim();
     return "";

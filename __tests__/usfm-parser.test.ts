@@ -82,6 +82,8 @@ import { RMarker } from "../src/models/markers/r-marker";
 import { RQMarker } from "../src/models/markers/rq-marker";
 import { XQMarker } from "../src/models/markers/xq-marker";
 import { XTMarker } from "../src/models/markers/xt-marker";
+import { FEndMarker } from "../src/models/markers/f-end-marker";
+import { FTMarker } from "../src/models/markers/ft-marker";
 
 describe("USFMParserTest", () => {
   let parser: USFMParser;
@@ -1092,5 +1094,86 @@ describe("USFMParserTest", () => {
     expect(doc.contents[1]).toBeInstanceOf(LIMarker);
     expect((doc.contents[1] as LIMarker).depth).toBe(2);
     expect((doc.contents[1].contents[0] as TextBlock).text).toBe("Second line");
+  });
+
+  test("TestGetRawContents_VerseWithFootnote", () => {
+    const doc = parser.parseFromString(
+      "\\v 1 This is a verse text part \\f + \\ft footnote text \\f* rest of verse"
+    );
+    const vm = doc.contents[0] as VMarker;
+    const raw = vm.getRawContents();
+    expect(raw).toContain("\\v 1");
+    expect(raw).toContain("This is a verse text part");
+    expect(raw).toContain("\\f +");
+    expect(raw).toContain("\\ft");
+    expect(raw).toContain("footnote text");
+    expect(raw).toContain("\\f*");
+    expect(raw).toContain("rest of verse");
+  });
+
+  test("TestGetRawContents_SimpleVerse", () => {
+    const doc = parser.parseFromString("\\v 1 In the beginning");
+    const vm = doc.contents[0] as VMarker;
+    const raw = vm.getRawContents();
+    expect(raw).toContain("\\v 1");
+    expect(raw).toContain("In the beginning");
+  });
+
+  test("TestGetRawContents_Chapter", () => {
+    const doc = parser.parseFromString(
+      "\\c 1 \\v 1 In the beginning"
+    );
+    const cm = doc.contents[0] as CMarker;
+    const raw = cm.getRawContents();
+    expect(raw).toContain("\\c 1");
+    expect(raw).toContain("\\v 1");
+    expect(raw).toContain("In the beginning");
+  });
+
+  test("TestGetRawContents_CrossReference", () => {
+    const doc = parser.parseFromString(
+      "\\x - \\xo 11.21 \\xq Tebes \\xt Mrk 1.24\\x*"
+    );
+    const xm = doc.contents[0] as XMarker;
+    const raw = xm.getRawContents();
+    expect(raw).toContain("\\x -");
+    expect(raw).toContain("\\xo 11.21");
+    expect(raw).toContain("Tebes");
+    expect(raw).toContain("Mrk 1.24");
+  });
+
+  test("TestGetRawContents_TextBlock", () => {
+    const tb = new TextBlock("Hello world");
+    expect(tb.getRawContents()).toBe("Hello world");
+  });
+
+  test("TestGetRawContents_EndMarker", () => {
+    const doc = parser.parseFromString("\\f + \\ft text \\f*");
+    const fEnd = doc.contents[1] as FEndMarker;
+    expect(fEnd.getRawContents()).toBe("\\f*");
+  });
+
+  test("TestGetRawContents_FootnoteWithKeyword", () => {
+    const doc = parser.parseFromString(
+      "\\f + \\fr 1.3 \\fk Tamar \\ft text here\\f*"
+    );
+    const fm = doc.contents[0] as FMarker;
+    const raw = fm.getRawContents();
+    expect(raw).toContain("\\f +");
+    expect(raw).toContain("\\fr 1.3");
+    expect(raw).toContain("\\fk Tamar");
+    expect(raw).toContain("\\ft");
+    expect(raw).toContain("text here");
+  });
+
+  test("TestGetRawContents_DocumentRoundTrip", () => {
+    const input = "\\id GEN \\c 1 \\p \\v 1 In the beginning God created the heavens and the earth.";
+    const doc = parser.parseFromString(input);
+    const raw = doc.getRawContents();
+    expect(raw).toContain("\\id GEN");
+    expect(raw).toContain("\\c 1");
+    expect(raw).toContain("\\p");
+    expect(raw).toContain("\\v 1");
+    expect(raw).toContain("In the beginning God created the heavens and the earth.");
   });
 });

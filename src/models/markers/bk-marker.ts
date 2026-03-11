@@ -7,6 +7,10 @@ export class BKMarker extends Marker {
     return "bk";
   }
 
+  public getRawValue(): string {
+    return this.bookTitle || "";
+  }
+
   public preProcess(input: string): string {
     this.bookTitle = input.trim();
     return "";

@@ -12,6 +12,10 @@ export class QAMarker extends Marker {
     return "qa";
   }
 
+  public getRawValue(): string {
+    return this.heading || "";
+  }
+
   public preProcess(input: string): string {
     this.heading = input.trim();
     return "";

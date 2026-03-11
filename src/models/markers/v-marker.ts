@@ -105,6 +105,10 @@ export class VMarker extends Marker {
     return "v";
   }
 
+  public getRawValue(): string {
+    return this.verseNumber || "";
+  }
+
   public preProcess(input: string): string {
     const matches = input.match(VMarker.verseRegex);
     if (matches) {

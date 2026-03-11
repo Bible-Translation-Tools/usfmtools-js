@@ -26,6 +26,10 @@ export class SMarker extends Marker {
     return "s";
   }
 
+  public getRawValue(): string {
+    return this.text || "";
+  }
+
   public preProcess(input: string): string {
     this.text = input.trimStart();
     return "";

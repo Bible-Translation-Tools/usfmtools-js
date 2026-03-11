@@ -33,6 +33,10 @@ export class FMarker extends Marker {
     return "f";
   }
 
+  public getRawValue(): string {
+    return this.footNoteCaller || "";
+  }
+
   public preProcess(input: string): string {
     this.footNoteCaller = input.trim();
     return "";

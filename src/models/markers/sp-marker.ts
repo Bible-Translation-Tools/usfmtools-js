@@ -11,6 +11,10 @@ export class SPMarker extends Marker {
     return "sp";
   }
 
+  public getRawValue(): string {
+    return this.speaker || "";
+  }
+
   public preProcess(input: string): string {
     this.speaker = input.trim();
     return "";

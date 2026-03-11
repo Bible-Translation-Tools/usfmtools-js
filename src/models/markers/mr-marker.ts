@@ -13,6 +13,10 @@ export class MRMarker extends Marker {
     return "mr";
   }
 
+  public getRawValue(): string {
+    return this.sectionReference || "";
+  }
+
   public preProcess(input: string): string {
     this.sectionReference = input.trimStart();
     return "";

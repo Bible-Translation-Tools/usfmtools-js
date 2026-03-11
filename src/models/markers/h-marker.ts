@@ -7,6 +7,10 @@ export class HMarker extends Marker {
     return "h";
   }
 
+  public getRawValue(): string {
+    return this.headerText || "";
+  }
+
   public preProcess(input: string): string {
     this.headerText = input.trim();
     return "";

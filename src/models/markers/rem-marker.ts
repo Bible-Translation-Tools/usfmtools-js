@@ -7,6 +7,10 @@ export class REMMarker extends Marker {
     return "rem";
   }
 
+  public getRawValue(): string {
+    return this.comment || "";
+  }
+
   public preProcess(input: string): string {
     this.comment = input.trim();
     return "";
