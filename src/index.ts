@@ -160,3 +160,4 @@ export * from "./models/markers/xo-marker";
 export * from "./models/markers/xq-marker";
 export * from "./models/markers/xt-marker";
 export * from "./usfm-parser";
+export * from "./usfm-renderer";

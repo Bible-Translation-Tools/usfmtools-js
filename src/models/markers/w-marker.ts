@@ -58,6 +58,9 @@ export class WMarker extends Marker {
   }
 
   public isValid(): boolean {
-    return !Marker.isNullOrWhiteSpace(this.term);
+    return (
+      !Marker.isNullOrWhiteSpace(this.term) ||
+      Object.keys(this.attributes).length > 0
+    );
   }
 }
