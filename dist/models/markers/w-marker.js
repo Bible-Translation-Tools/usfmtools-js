@@ -52,7 +52,8 @@ class WMarker extends marker_1.Marker {
         return [text_block_1.TextBlock];
     }
     isValid() {
-        return !marker_1.Marker.isNullOrWhiteSpace(this.term);
+        return (!marker_1.Marker.isNullOrWhiteSpace(this.term) ||
+            Object.keys(this.attributes).length > 0);
     }
 }
 exports.WMarker = WMarker;

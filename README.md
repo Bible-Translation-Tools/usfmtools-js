@@ -110,6 +110,51 @@ const usfm = doc.getRawContents();
 // => "\\id GEN \\c 1 \\p \\v 1 In the beginning"
 ```
 
+## Rendering with USFMRenderer
+
+`USFMRenderer` renders a `USFMDocument` (or any marker subtree) back to USFM with control over the output. Unlike `getRawContents()`, it follows the original text spacing: `TextBlock`s are emitted verbatim and end markers attach directly to the content they close.
+
+```typescript
+import { USFMRenderer, VMarker } from "usfmtools";
+
+const renderer = new USFMRenderer();
+const usfm = renderer.render(doc);
+
+// Works on any subtree, e.g. a single verse
+const verse = doc.getChildMarkers(VMarker)[0];
+const verseUsfm = renderer.render(verse);
+```
+
+### Options
+
+**`unwrapWordEntries`** (default `false`) -- render word entry markers (`\w term|attributes \w*`) as the bare term, dropping the markup and alignment attributes (`strong`, `x-morph`, etc.). Useful for turning aligned USFM into plain translatable text:
+
+```typescript
+const doc = parser.parseFromString(
+  '\\c 1\n\\v 1 In the \\w beginning|strong="H7225"\\w* God \\w created|strong="H1254" x-morph="strongMorph:TH8804"\\w*'
+);
+
+const renderer = new USFMRenderer({ unwrapWordEntries: true });
+renderer.render(doc);
+// => "\\c 1 \\v 1 In the beginning God created"
+```
+
+Attribute-only word entries (`\w |strong="H935"\w*`) and empty ones (`\w \w*`) are dropped entirely.
+
+**`excludeMarkers`** (default `[]`) -- marker identifiers to omit from the output, including their values and children:
+
+```typescript
+const doc = parser.parseFromString(
+  "\\c 1\n\\s A section heading\n\\p\n\\v 1 In the beginning"
+);
+
+const renderer = new USFMRenderer({ excludeMarkers: ["s"] });
+renderer.render(doc);
+// => "\\c 1 \\p \\v 1 In the beginning"
+```
+
+Options combine, e.g. `new USFMRenderer({ unwrapWordEntries: true, excludeMarkers: ["s"] })`.
+
 ## Handling unknown and invalid markers
 
 The parser produces two special marker types for error handling:

@@ -176,3 +176,4 @@ __exportStar(require("./models/markers/xo-marker"), exports);
 __exportStar(require("./models/markers/xq-marker"), exports);
 __exportStar(require("./models/markers/xt-marker"), exports);
 __exportStar(require("./usfm-parser"), exports);
+__exportStar(require("./usfm-renderer"), exports);
